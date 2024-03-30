@@ -24,7 +24,7 @@ export class SSCEqMonitor {
 
 
     get interval() {
-        return(8000);
+        return (8000);
     }
 
 

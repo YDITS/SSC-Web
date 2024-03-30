@@ -13,7 +13,7 @@ export class Map {
 
 
     get apiKey() {
-        return('wiAJ7OPjFLLf0qS0KJYa');
+        return ('wiAJ7OPjFLLf0qS0KJYa');
     }
 
 
@@ -23,12 +23,12 @@ export class Map {
 
 
     get defaultZoom() {
-        return(5);
+        return (5);
     }
 
 
     get mapStyle() {
-        return('https://api.maptiler.com/maps/8ec88df9-410c-4968-acf6-b79f27d971f1/style.json?key=GHvHPC7Le16USNGvdnNq');
+        return ('https://api.maptiler.com/maps/8ec88df9-410c-4968-acf6-b79f27d971f1/style.json?key=GHvHPC7Le16USNGvdnNq');
     }
 
 
@@ -55,8 +55,8 @@ export class Map {
             })
         }).addTo(this.map);
     }
-    
-    
+
+
     setHypocenter(lat, lng) {
         if (!this.hypocenterMarker) {
             this.initializeHypocenter(lat, lng);
@@ -64,5 +64,15 @@ export class Map {
         }
 
         this.hypocenterMarker.setLatLng([lat, lng]);
+    }
+
+
+    newPoint(lat, lng, iconUrl) {
+        L.marker([lat, lng], {
+            icon: L.icon({
+                iconUrl: iconUrl,
+                iconSize: [32, 32]
+            })
+        }).addTo(this.map);
     }
 }
