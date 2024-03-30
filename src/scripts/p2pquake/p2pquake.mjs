@@ -81,7 +81,7 @@ export class P2pquake {
 
             publishedTimeElement.innerText = earthquakeData.publishedTime;
             typeElement.innerText = earthquakeData.typeText;
-            timeElement.innerText = earthquakeData.publishedTime;
+            timeElement.innerText = earthquakeData.occurredTime;
             hypoElement.innerText = earthquakeData.hypocenter.name;
             scaleElement.innerText = earthquakeData.scaleText;
             magnitudeElement.innerText = earthquakeData.magnitudeText;
