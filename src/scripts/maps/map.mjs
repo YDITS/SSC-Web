@@ -44,6 +44,15 @@ export class Map {
             navigationControl: false
         }).addTo(this.map);
 
+        this.bounds = L.latLngBounds();
+    }
+
+
+    removeAllLayers() {
+        this.map.eachLayer(layer => {
+            if (!(layer instanceof L.Marker)) { return; }
+            this.map.removeLayer(layer);
+        })
     }
 
 
@@ -64,6 +73,11 @@ export class Map {
         }
 
         this.hypocenterMarker.setLatLng([lat, lng]);
+    }
+
+
+    fitMap(lat, lng) {
+        this.map.setView([lat, lng], 8);
     }
 
 

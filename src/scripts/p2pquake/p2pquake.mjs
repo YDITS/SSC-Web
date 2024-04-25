@@ -39,6 +39,13 @@ export class P2pquake {
         })
             .then(response => response.json())
             .then(data => {
+                if (this.lastId === data[0].id) {
+                    this.lastId = data[0].id;
+                    return;
+                }
+
+                this.lastId = data[0].id;
+
                 let _data = [];
 
                 data.forEach(list => {
@@ -91,7 +98,9 @@ export class P2pquake {
             let lat = earthquakeData.hypocenter.lat;
             let lng = earthquakeData.hypocenter.lng;
 
+            this.map.removeAllLayers();
             this.map.setHypocenter(lat, lng);
+            this.map.fitMap(lat, lng);
         } catch (error) {
             console.error(error)
         }
