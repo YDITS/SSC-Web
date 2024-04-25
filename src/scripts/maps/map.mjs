@@ -35,7 +35,8 @@ export class Map {
     initMap() {
         this.map = L.map('map', {
             center: this.defaultLatLng,
-            zoom: this.defaultZoom
+            zoom: this.defaultZoom,
+            zoomControl: false,
         });
 
         L.maptilerLayer({

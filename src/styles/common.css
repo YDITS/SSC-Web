@@ -8,8 +8,11 @@
 
 */
 
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap');
+
+
 :root {
-    --font-size: 18px;
+    --font-size: 20px;
 }
 
 
@@ -26,6 +29,7 @@ html {
 
 body {
     font-size: var(--font-size);
+    font-family: 'Noto Sans JP', 'Roboto', sans-serif;
 }
 
 
@@ -38,24 +42,23 @@ body {
 .map-items {
     position: fixed;
     z-index: 10000;
-    box-shadow: 0 0 4px 4px #00000027;
-    background-color: #404040ff;
+    background-color: #00000060;
     color: #ffffffff;
 }
 
 
 #titleArea {
     top: 1rem;
-    left: 1rem;
-    border-radius: .5em;
+    left: 0;
     padding: .5em;
+    font-size: 1.5rem;
 }
 
 
 #timeArea {
-    top: 2.8rem;
-    left: 1rem;
-    border-radius: .5em;
+    top: 5rem;
+    left: 0;
+    background-color: #00000000;
     padding: .5em;
 }
 
