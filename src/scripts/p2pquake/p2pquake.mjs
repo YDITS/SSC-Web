@@ -24,7 +24,7 @@ export class P2pquake {
      * 2以上: すべての観測点のうち読み飛ばす間隔 (大規模な地震の場合、大きい値ほど軽量になる)
      */
     get mapType() {
-        return (0);
+        return (1);
     }
 
 
