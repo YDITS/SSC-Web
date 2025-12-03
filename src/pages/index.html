@@ -1,0 +1,141 @@
+<!--
+
+    SSC for Web
+
+    Copyright (C) Saitama Sora Cam, よね/Yone
+
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SSC for Web</title>
+
+    <link rel="stylesheet" href="./styles/common.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link href="https://cdn.maptiler.com/maptiler-sdk-js/v1.2.0/maptiler-sdk.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.maptiler.com/maptiler-sdk-js/v1.2.0/maptiler-sdk.umd.js"></script>
+    <script src="https://cdn.maptiler.com/leaflet-maptilersdk/v2.0.0/leaflet-maptilersdk.js"></script>
+    <script src="./scripts/index.js" type="module"></script>
+</head>
+
+<body>
+    <div id="map">
+        <div id="titleArea" class="map-items">
+            <span id="eqinfoType"></span>
+        </div>
+
+        <div id="timeArea" class="map-items">
+            <span id="publishedTime"></span>
+            <label for="publishedTime"> 発表</label>
+        </div>
+
+        <div id="eqinfoArea" class="map-items">
+            <div>
+                <label for="eqinfoTime">発生時刻: </label>
+                <span id="eqinfoTime"></span>
+            </div>
+
+            <div class="eqinfoItems">
+                <label for="eqinfoHypo">震源地: </label>
+                <span id="eqinfoHypo"></span>
+            </div>
+
+            <div class="eqinfoItems">
+                <label for="eqinfoScale">最大震度: </label>
+                <span id="eqinfoScale"></span>
+            </div>
+
+            <div class="eqinfoItems">
+                <label for="eqinfoMag">マグニチュード: </label>
+                <span id="eqinfoMag"></span>
+            </div>
+
+            <div class="eqinfoItems">
+                <label for="eqinfoDepth">深さ: </label>
+                <span id="eqinfoDepth"></span>
+            </div>
+
+            <div class="eqinfoItems">
+                <label for="eqinfoTsunami">津波: </label>
+                <span id="eqinfoTsunami"></span>
+            </div>
+        </div>
+
+        <!-- <div id="iconSample" class="map-items">
+            <div class="list">
+                <img src="./images/hypocenter.png" alt="" srcset="">
+                <span>震央</span>
+            </div>
+
+            <div class="list">
+                <img src="./images/radius/unknown.png" alt="" srcset="">
+                <span>震度不明</span>
+            </div>
+
+            <div class="list">
+                <img src="./images/square/1.png" alt="" srcset="">
+                <span>震度１</span>
+            </div>
+
+            <div class="list">
+                <img src="./images/square/2.png" alt="" srcset="">
+                <span>震度２</span>
+            </div>
+
+            <div class="list">
+                <img src="./images/square/3.png" alt="" srcset="">
+                <span>震度３</span>
+            </div>
+
+            <div class="list">
+                <img src="./images/square/4.png" alt="" srcset="">
+                <span>震度４</span>
+            </div>
+
+            <div class="list">
+                <img src="./images/square/5-.png" alt="" srcset="">
+                <span>震度５弱</span>
+            </div>
+
+            <div class="list">
+                <img src="./images/square/5+.png" alt="" srcset="">
+                <span>震度５強</span>
+            </div>
+
+            <div class="list">
+                <img src="./images/square/6-.png" alt="" srcset="">
+                <span>震度６弱</span>
+            </div>
+
+            <div class="list">
+                <img src="./images/square/6+.png" alt="" srcset="">
+                <span>震度６強</span>
+            </div>
+
+            <div class="list">
+                <img src="./images/square/7.png" alt="" srcset="">
+                <span>震度７</span>
+            </div>
+        </div> -->
+
+        <div id="yditsCopyright" class="map-items">
+            <a class="copyright-link" href="https://webapp.ydits.net/" target="_blank">
+                <img class="copyright-image"
+                    src="https://cdn.ydits.net/images/ydits_logos/ydits_logo_white_transparent.png" alt="YDITS's Logo">
+            </a>
+        </div>
+    </div>
+
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css" rel="stylesheet">
+</body>
+
+</html>
