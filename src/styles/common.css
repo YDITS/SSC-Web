@@ -1,43 +1,37 @@
+@charset "UTF-8";
+
 /*
 
-    SSC EQMonitor
+    SSC for Web
 
     Copyright (C) Saitama Sora Cam, よね/Yone
-
-    Licensed under by よね/Yone.
 
 */
 
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap');
 
-
 :root {
     --font-size: 20px;
 }
-
 
 * {
     margin: 0;
     padding: 0;
 }
 
-
 html {
     font-size: var(--font-size);
 }
-
 
 body {
     font-size: var(--font-size);
     font-family: 'Noto Sans JP', 'Roboto', sans-serif;
 }
 
-
 #map {
     width: 100%;
     height: 100vh;
 }
-
 
 .map-items {
     position: fixed;
@@ -46,14 +40,12 @@ body {
     color: #ffffffff;
 }
 
-
 #titleArea {
     top: 1rem;
     left: 0;
     padding: .5em;
     font-size: 1.5rem;
 }
-
 
 #timeArea {
     top: 5rem;
@@ -62,14 +54,12 @@ body {
     padding: .5em;
 }
 
-
 #eqinfoArea {
     top: 1rem;
     right: 1rem;
     border-radius: .5em;
     padding: .5em;
 }
-
 
 #iconSample {
     bottom: 7rem;
@@ -78,19 +68,16 @@ body {
     padding: .5em 1em;
 }
 
-
 #iconSample .list {
     display: flex;
     align-items: center;
     margin: .75rem 0;
 }
 
-
 #iconSample img {
     width: 1.5rem;
     margin-right: .3rem;
 }
-
 
 #yditsCopyright {
     bottom: 3rem;
@@ -98,12 +85,10 @@ body {
     border-radius: .5em;
 }
 
-
 .copyright-link {
     display: block;
     padding: .5em 1em;
 }
-
 
 .copyright-image {
     width: 5rem;
