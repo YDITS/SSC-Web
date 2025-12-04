@@ -2,7 +2,8 @@
  * 
  * SSC for Web
  * 
- * Copyright (C) よね/Yone
+ * Copyright (C) Saitama Sora Cam, よね/Yone
+ * 改変や複製を一切禁じます。
  * 
  */
 
