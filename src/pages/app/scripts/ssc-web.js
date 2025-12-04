@@ -7,7 +7,7 @@
  * 
  */
 
-import { Version } from "https://cdn.yoneyo.com/scripts/version/version-v1.0.0.js";
+import { Version } from "https://cdn.yoneyo.com/scripts/version@1.0.0/version.js";
 
 import { Map } from "./maps/map.js";
 import { P2pquake } from "./p2pquake/p2pquake.js";
