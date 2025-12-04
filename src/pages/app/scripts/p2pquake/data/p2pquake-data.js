@@ -7,11 +7,24 @@
  * 
  */
 
+import { DateFormatter } from "../../utils/date-formatter/date-formatter.js";
+
 export class P2pquakeItem {
     constructor(item) {
         this.type = item.type;
-        this.publishedTime = item.publishedTime;
-        this.occurredTime = item.occurredTime;
+
+        this.publishedTime = DateFormatter.dateFormat({
+            date: new Date(item.publishedTime),
+            formatType: DateFormatter.formatTypes.FULL
+        });
+
+        this.occurredTime = DateFormatter.dateFormat({
+            date: new Date(item.occurredTime),
+            formatType: DateFormatter.formatTypes.TIME_ONLY_NO_SECONDS
+        });
+
+        this.occurredTime += "頃";
+
         this.scale = item.scale;
         this.magnitude = item.magnitude;
         this.depth = item.depth;
@@ -24,11 +37,9 @@ export class P2pquakeItem {
         this.points = item.points;
     }
 
-
     get scaleText() {
         return (this.scaleTextToJp[String(this.scale)]);
     }
-
 
     get scaleTextToJp() {
         return ({
@@ -45,7 +56,6 @@ export class P2pquakeItem {
         });
     }
 
-
     get depthText() {
         if (this.depth === -1) {
             return ("不明");
@@ -56,7 +66,6 @@ export class P2pquakeItem {
         }
     }
 
-
     get magnitudeText() {
         if (this.magnitude === -1) {
             return ("不明");
@@ -65,16 +74,13 @@ export class P2pquakeItem {
         }
     }
 
-
     get tsunamiText() {
         return (this.tsunamiTextToJp[this.domesticTsunami]);
     }
 
-
     get typeText() {
         return (this.typeTextToJp[this.type]);
     }
-
 
     get typeTextToJp() {
         return ({
@@ -86,7 +92,6 @@ export class P2pquakeItem {
             "Other": "地震情報"
         });
     }
-
 
     get tsunamiTextToJp() {
         return ({
@@ -100,7 +105,6 @@ export class P2pquakeItem {
     }
 }
 
-
 export class P2pquakePoint {
     constructor(item) {
         this.addr = item.addr;
@@ -111,11 +115,9 @@ export class P2pquakePoint {
         this.longitude = item.longitude;
     }
 
-
     get scaleText() {
         return (this.scaleTextToJp[String(this.scale)]);
     }
-
 
     get scaleTextToJp() {
         return ({
@@ -132,7 +134,6 @@ export class P2pquakePoint {
         });
     }
 
-
     get depthText() {
         if (this.depth === -1) {
             return ("不明");
@@ -143,7 +144,6 @@ export class P2pquakePoint {
         }
     }
 
-
     get magnitudeText() {
         if (this.magnitude === -1) {
             return ("不明");
@@ -152,16 +152,13 @@ export class P2pquakePoint {
         }
     }
 
-
     get tsunamiText() {
         return (this.tsunamiTextToJp[this.domesticTsunami]);
     }
 
-
     get typeText() {
         return (this.typeTextToJp[this.type]);
     }
-
 
     get typeTextToJp() {
         return ({
@@ -173,7 +170,6 @@ export class P2pquakePoint {
             "Other": "地震情報"
         });
     }
-
 
     get tsunamiTextToJp() {
         return ({
