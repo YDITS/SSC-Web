@@ -2,12 +2,13 @@
  * 
  * SSC for Web
  * 
- * Copyright (C) Saitama Sora Cam, よね/Yone
+ * Copyright (C) よね/Yone
  * 
  */
 
 import { SSCWeb } from "./ssc-web.js";
 
-document.addEventListener("DOMContentLoaded", () => {
-    new SSCWeb();
+document.addEventListener("DOMContentLoaded", async () => {
+    const app = new SSCWeb();
+    await app.run();
 });

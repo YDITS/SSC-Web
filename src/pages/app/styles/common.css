@@ -4,19 +4,31 @@
 
     SSC for Web
 
-    Copyright (C) Saitama Sora Cam, よね/Yone
+    Copyright (C) よね/Yone
 
 */
 
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap');
 
 :root {
-    --font-size: 20px;
+    --font-size: 18px;
+    --font-family: 'Noto Sans JP', 'Roboto', sans-serif;
+
+    --map-item--border-radius: 0.5rem;
+    --map-item--bgcolor: #000000c0;
+    --map-item--color: #ffffffff;
+
+    --information-details--width: 16rem;
+
+    /* z-index */
+    --map-item--z-index: 9999;
 }
 
-* {
+body,
+body * {
     margin: 0;
     padding: 0;
+    user-select: none;
 }
 
 html {
@@ -24,72 +36,195 @@ html {
 }
 
 body {
+    background-color: #000;
     font-size: var(--font-size);
-    font-family: 'Noto Sans JP', 'Roboto', sans-serif;
+    font-family: var(--font-family);
 }
 
-#map {
-    width: 100%;
+main {
+    display: flex;
+    flex-direction: row;
+}
+
+/* map */
+
+.map {
+    width: calc(100vw - var(--information-details--width));
     height: 100vh;
 }
 
-.map-items {
+.map__item {
     position: fixed;
-    z-index: 10000;
-    background-color: #00000060;
-    color: #ffffffff;
+    z-index: var(--map-item--z-index);
+    background-color: var(--map-item--bgcolor);
+    color: var(--map-item--color);
 }
 
-#titleArea {
+/* information-title */
+
+.information-title {
     top: 1rem;
     left: 0;
-    padding: .5em;
-    font-size: 1.5rem;
-}
 
-#timeArea {
-    top: 5rem;
-    left: 0;
-    background-color: #00000000;
-    padding: .5em;
-}
-
-#eqinfoArea {
-    top: 1rem;
-    right: 1rem;
-    border-radius: .5em;
-    padding: .5em;
-}
-
-#iconSample {
-    bottom: 7rem;
-    left: .7rem;
-    border-radius: .5em;
-    padding: .5em 1em;
-}
-
-#iconSample .list {
     display: flex;
     align-items: center;
-    margin: .75rem 0;
+    justify-content: center;
+
+    padding: 0.5em;
+    font-size: 1.8rem;
+    font-weight: bold;
 }
 
-#iconSample img {
+/* published-time */
+
+.published-time {
+    top: 5.5rem;
+    left: 0;
+
+    background-color: #0000;
+    padding: 0.5em;
+    font-size: 1rem;
+    text-shadow: -1px -1px #0008, -1px 1px #0008, 1px -1px #0008, 1px 1px #0008;
+}
+
+/* information-details */
+
+.information-details {
+    display: flex;
+    flex-direction: column;
+
+    box-sizing: border-box;
+
+    width: var(--information-details--width);
+    height: 100vh;
+    border-left: 1px solid #fff2;
+
+    padding: 0.5rem 0.8rem;
+    background-color: #111;
+    color: #fff;
+}
+
+.information-details__item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    min-height: 3.5rem;
+    overflow: hidden;
+    border-top: 1px solid #fff4;
+
+    padding: 0.5rem 0;
+
+    &:first-child {
+        border-top: none;
+    }
+}
+
+.information-details__term {
+    width: 50%;
+}
+
+.information-details__label {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #ccc;
+}
+
+.information-details__description {
+    display: flex;
+    justify-content: end;
+    width: 50%;
+}
+
+.information-details__display {
+    display: inline-block;
+    text-align: right;
+    font-size: 1rem;
+}
+
+.hypocenter,
+.tsunami {
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.hypocenter__term,
+.hypocenter__description,
+.tsunami__term,
+.tsunami__description,
+.hypocenter__display,
+.tsunami__display {
+    width: 100%;
+}
+
+.max-int__display,
+.magnitude__display {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+/* icon-legends */
+
+.icon-legend {
+    bottom: 7rem;
+    left: .7rem;
+
+    display: none;
+    flex-direction: column;
+
+    gap: 0.5rem;
+    border-radius: var(--map-item--border-radius);
+    padding: .5em 1em;
+
+    &.enabled {
+        display: flex;
+    }
+}
+
+.icon-legend__item {
+    display: flex;
+    align-items: center;
+}
+
+.icon-legend__image {
     width: 1.5rem;
     margin-right: .3rem;
 }
 
-#yditsCopyright {
+.ellipsis {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    &>* {
+        transform: rotate(90deg);
+    }
+}
+
+/* ydits-copyright */
+
+.ydits-copyright {
     bottom: 3rem;
     left: .7rem;
-    border-radius: .5em;
+    border-radius: var(--map-item--border-radius);
 }
 
-.copyright-link {
-    display: block;
-    padding: .5em 1em;
+.ydits-copyright__link {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem;
+
+    color: var(--map-item--color);
+    text-decoration: none;
 }
 
-.copyright-image {
-    width: 5rem;
+.ydits-copyright__before {
+    font-size: 0.8rem;
+    color: var(--map-item--color);
+}
+
+.ydits-copyright__image {
+    width: 4.5rem;
 }

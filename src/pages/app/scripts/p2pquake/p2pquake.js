@@ -2,7 +2,7 @@
  * 
  * SSC for Web
  * 
- * Copyright (C) Saitama Sora Cam, よね/Yone
+ * Copyright (C) よね/Yone
  * 
  */
 
@@ -68,34 +68,39 @@ export class P2pquake {
     }
 
     displayEarthquakeInfo(data) {
+        const latestData = data[0];
+
         try {
-            let earthquakeData = data[0]; // 最新の地震情報を取得
-            let publishedTimeElement = document.getElementById('publishedTime');
-            let typeElement = document.getElementById('eqinfoType');
-            let timeElement = document.getElementById('eqinfoTime');
-            let hypoElement = document.getElementById('eqinfoHypo');
-            let scaleElement = document.getElementById('eqinfoScale');
-            let magnitudeElement = document.getElementById('eqinfoMag');
-            let depthElement = document.getElementById('eqinfoDepth');
-            let tsunamiElement = document.getElementById('eqinfoTsunami');
+            let $publishedTimeDisplay = document.getElementById('publishedTimeDisplay');
+            let $infoTypeDisplay = document.getElementById('informationTitleDisplay');
+            let $occurredTimeDisplay = document.getElementById('occurredTimeDisplay');
+            let $hypocenterDisplay = document.getElementById('hypocenterDisplay');
+            let $maxIntDisplay = document.getElementById('maxIntDisplay');
+            let $magnitudeDisplay = document.getElementById('magnitudeDisplay');
+            let $depthDisplay = document.getElementById('depthDisplay');
+            let $tsunamiDisplay = document.getElementById('tsunamiDisplay');
 
-            publishedTimeElement.innerText = earthquakeData.publishedTime;
-            typeElement.innerText = earthquakeData.typeText;
-            timeElement.innerText = earthquakeData.occurredTime;
-            hypoElement.innerText = earthquakeData.hypocenter.name;
-            scaleElement.innerText = earthquakeData.scaleText;
-            magnitudeElement.innerText = earthquakeData.magnitudeText;
-            depthElement.innerText = earthquakeData.depthText;
-            tsunamiElement.innerText = earthquakeData.tsunamiText;
+            $publishedTimeDisplay.innerText = latestData.publishedTime;
+            $infoTypeDisplay.innerText = latestData.typeText;
+            $occurredTimeDisplay.innerText = latestData.occurredTime;
+            $hypocenterDisplay.innerText = latestData.hypocenter.name;
+            $maxIntDisplay.innerText = latestData.scaleText;
+            $magnitudeDisplay.innerText = latestData.magnitudeText;
+            $depthDisplay.innerText = latestData.depthText;
+            $tsunamiDisplay.innerText = latestData.tsunamiText;
+        } catch (error) {
+            console.error(error);
+        }
 
-            let lat = earthquakeData.hypocenter.lat;
-            let lng = earthquakeData.hypocenter.lng;
+        try {
+            let lat = latestData.hypocenter.lat;
+            let lng = latestData.hypocenter.lng;
 
             this.map.removeAllLayers();
             this.map.setHypocenter(lat, lng);
             this.map.fitMap(lat, lng);
         } catch (error) {
-            console.error(error)
+            console.error(error);
         }
     }
 
