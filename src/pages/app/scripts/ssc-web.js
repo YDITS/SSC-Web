@@ -7,11 +7,17 @@
  * 
  */
 
+import { Version } from "https://cdn.yoneyo.com/scripts/version/version-v1.0.0.js";
+
 import { Map } from "./maps/map.js";
 import { P2pquake } from "./p2pquake/p2pquake.js";
 
 export class SSCWeb {
     constructor() { }
+
+    get version() {
+        return new Version(1, 0, 0, Version.levels.dev);
+    }
 
     get name() {
         return "SSC for Web";
