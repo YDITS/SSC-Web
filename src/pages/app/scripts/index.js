@@ -8,6 +8,7 @@
 
 import { SSCWeb } from "./ssc-web.js";
 
-document.addEventListener("DOMContentLoaded", () => {
-    new SSCWeb();
+document.addEventListener("DOMContentLoaded", async () => {
+    const app = new SSCWeb();
+    await app.run();
 });

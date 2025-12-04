@@ -15,127 +15,151 @@
     <title>SSC for Web</title>
 
     <link rel="stylesheet" href="./styles/common.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-    <link href="https://cdn.maptiler.com/maptiler-sdk-js/v1.2.0/maptiler-sdk.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <link href="https://cdn.maptiler.com/maptiler-sdk-js/v1.2.0/maptiler-sdk.css" rel="stylesheet">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css" rel="stylesheet">
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://cdn.maptiler.com/maptiler-sdk-js/v1.2.0/maptiler-sdk.umd.js"></script>
     <script src="https://cdn.maptiler.com/leaflet-maptilersdk/v2.0.0/leaflet-maptilersdk.js"></script>
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js"></script>
     <script src="./scripts/index.js" type="module"></script>
 </head>
 
 <body>
-    <div id="map">
-        <div id="titleArea" class="map-items">
-            <span id="eqinfoType"></span>
+    <main>
+        <div id="map" class="map">
+            <div id="informationTitle" class="map__item information-title">
+                <span id="informationTitleDisplay" class="information-display information-title__display"></span>
+            </div>
+
+            <div id="publishedTime" class="map__item published-time">
+                <span id="publishedTimeDisplay" class="information-display published-time__display"></span>
+                <label id="publishedTimeAfter" for="publishedTimeDisplay"
+                    class="information-display__after published-time__after">
+                    発表
+                </label>
+            </div>
+
+            <div id="iconLegend" class="map__item icon-legend">
+                <div class="icon-legend__item">
+                    <img src="./images/hypocenter.png" alt="" srcset="" class="icon-legend__image">
+                    <span>震央</span>
+                </div>
+
+                <div class="icon-legend__item">
+                    <img src="./images/radius/unknown.png" alt="" srcset="" class="icon-legend__image">
+                    <span>震度不明</span>
+                </div>
+
+                <div class="icon-legend__item">
+                    <img src="./images/radius/1.png" alt="" srcset="" class="icon-legend__image">
+                    <span>震度１</span>
+                </div>
+
+                <div class="icon-legend__item ellipsis">
+                    <span>～</span>
+                </div>
+
+                <div class="icon-legend__item">
+                    <img src="./images/square/7.png" alt="" srcset="" class="icon-legend__image">
+                    <span>震度７</span>
+                </div>
+            </div>
+
+            <div id="yditsCopyright" class="map__item ydits-copyright">
+                <a class="ydits-copyright__link" href="https://webapp.ydits.net/" target="_blank">
+                    <span id="yditsCopyrightBefore" class="ydits-copyright__before">
+                        Powered by
+                    </span>
+                    <img id="yditsCopyrightImage" class="ydits-copyright__image"
+                        src="https://cdn.ydits.net/images/ydits_logos/ydits_logo_white_transparent.png"
+                        alt="YDITS's Logo">
+                </a>
+            </div>
         </div>
 
-        <div id="timeArea" class="map-items">
-            <span id="publishedTime"></span>
-            <label for="publishedTime"> 発表</label>
+        <div id="informationDetails" class="information-details">
+            <dl id="occurredTime" class="information-details__item occurred-time">
+                <dt class="information-details__term occurred-time__term">
+                    <label id="occurredTimeLabel" for="occurredTimeDisplay"
+                        class="information-details__label occurred-time__label">
+                        発生時刻
+                    </label>
+                </dt>
+
+                <dd class="information-details__description occurred-time__description">
+                    <span id="occurredTimeDisplay" class="information-details__display occurred-time__display"></span>
+                </dd>
+            </dl>
+
+            <dl id="hypocenter" class="information-details__item hypocenter">
+                <dt class="information-details__term hypocenter__term">
+                    <label id="hypocenterLabel" for="hypocenterDisplay"
+                        class="information-details__label hypocenter__label">
+                        震源地
+                    </label>
+                </dt>
+
+                <dd class="information-details__description hypocenter__description">
+                    <span id="hypocenterDisplay" class="information-details__display hypocenter__display"></span>
+                </dd>
+            </dl>
+
+            <dl id="maxInt" class="information-details__item max-int">
+                <dt class="information-details__term max-int__term">
+                    <label id="maxIntLabel" for="maxIntDisplay" class="information-details__label max-int__label">
+                        最大震度
+                    </label>
+                </dt>
+
+                <dd class="information-details__description max-int__description">
+                    <span id="maxIntDisplay" class="information-details__display max-int__display"></span>
+                </dd>
+            </dl>
+
+            <dl id="magnitude" class="information-details__item magnitude">
+                <dt class="information-details__term magnitude__term">
+                    <label id="magnitudeLabel" for="magnitudeDisplay"
+                        class="information-details__label magnitude__label">
+                        規模
+                    </label>
+                </dt>
+
+                <dd class="information-details__description magnitude__description">
+                    <span id="magnitudeDisplay" class="information-details__display magnitude__display"></span>
+                </dd>
+            </dl>
+
+            <dl id="depth" class="information-details__item depth">
+                <dt class="information-details__term depth__term">
+                    <label id="depthLabel" for="depthDisplay" class="information-details__label depth__label">
+                        深さ
+                    </label>
+                </dt>
+
+                <dd class="information-details__description depth__description">
+                    <span id="depthDisplay" class="information-details__display depth__display"></span>
+                </dd>
+            </dl>
+
+            <dl id="tsunami" class="information-details__item tsunami">
+                <dt class="information-details__term tsunami__term">
+                    <label id="tsunamiLabel" for="tsunamiDisplay" class="information-details__label tsunami__label">
+                        津波
+                    </label>
+                </dt>
+
+                <dd class="information-details__description tsunami__description">
+                    <span id="_tsunamiDisplay" class="information-details__display tsunami__display">
+                        大津波警報・津波警報が発表
+                    </span>
+                </dd>
+            </dl>
         </div>
-
-        <div id="eqinfoArea" class="map-items">
-            <div>
-                <label for="eqinfoTime">発生時刻: </label>
-                <span id="eqinfoTime"></span>
-            </div>
-
-            <div class="eqinfoItems">
-                <label for="eqinfoHypo">震源地: </label>
-                <span id="eqinfoHypo"></span>
-            </div>
-
-            <div class="eqinfoItems">
-                <label for="eqinfoScale">最大震度: </label>
-                <span id="eqinfoScale"></span>
-            </div>
-
-            <div class="eqinfoItems">
-                <label for="eqinfoMag">マグニチュード: </label>
-                <span id="eqinfoMag"></span>
-            </div>
-
-            <div class="eqinfoItems">
-                <label for="eqinfoDepth">深さ: </label>
-                <span id="eqinfoDepth"></span>
-            </div>
-
-            <div class="eqinfoItems">
-                <label for="eqinfoTsunami">津波: </label>
-                <span id="eqinfoTsunami"></span>
-            </div>
-        </div>
-
-        <!-- <div id="iconSample" class="map-items">
-            <div class="list">
-                <img src="./images/hypocenter.png" alt="" srcset="">
-                <span>震央</span>
-            </div>
-
-            <div class="list">
-                <img src="./images/radius/unknown.png" alt="" srcset="">
-                <span>震度不明</span>
-            </div>
-
-            <div class="list">
-                <img src="./images/square/1.png" alt="" srcset="">
-                <span>震度１</span>
-            </div>
-
-            <div class="list">
-                <img src="./images/square/2.png" alt="" srcset="">
-                <span>震度２</span>
-            </div>
-
-            <div class="list">
-                <img src="./images/square/3.png" alt="" srcset="">
-                <span>震度３</span>
-            </div>
-
-            <div class="list">
-                <img src="./images/square/4.png" alt="" srcset="">
-                <span>震度４</span>
-            </div>
-
-            <div class="list">
-                <img src="./images/square/5-.png" alt="" srcset="">
-                <span>震度５弱</span>
-            </div>
-
-            <div class="list">
-                <img src="./images/square/5+.png" alt="" srcset="">
-                <span>震度５強</span>
-            </div>
-
-            <div class="list">
-                <img src="./images/square/6-.png" alt="" srcset="">
-                <span>震度６弱</span>
-            </div>
-
-            <div class="list">
-                <img src="./images/square/6+.png" alt="" srcset="">
-                <span>震度６強</span>
-            </div>
-
-            <div class="list">
-                <img src="./images/square/7.png" alt="" srcset="">
-                <span>震度７</span>
-            </div>
-        </div> -->
-
-        <div id="yditsCopyright" class="map-items">
-            <a class="copyright-link" href="https://webapp.ydits.net/" target="_blank">
-                <img class="copyright-image"
-                    src="https://cdn.ydits.net/images/ydits_logos/ydits_logo_white_transparent.png" alt="YDITS's Logo">
-            </a>
-        </div>
-    </div>
-
-    <script src="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js"></script>
-    <link href="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css" rel="stylesheet">
+    </main>
 </body>
 
 </html>

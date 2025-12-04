@@ -89,12 +89,12 @@ export class P2pquakeItem {
 
     get tsunamiTextToJp() {
         return ({
-            'None': '津波の心配なし',
-            'Unknown': '津波の影響は不明',
-            'Checking': '津波の影響を現在調査中',
-            'NonEffective': '若干の海面変動が予想されるが、被害の心配はなし',
+            'None': '心配なし',
+            'Unknown': '影響は不明',
+            'Checking': '影響を現在調査中',
+            'NonEffective': '若干の海面変動、被害の心配なし',
             'Watch': '津波注意報が発表',
-            'Warning': '津波警報等（大津波警報・津波警報あるいは津波注意報）が発表'
+            'Warning': '大津波警報・津波警報が発表'
         });
     }
 }
