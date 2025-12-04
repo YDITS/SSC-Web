@@ -10,4 +10,4 @@ Saitama Sora Cam (SSC) が提供する防災Webアプリケーションです。
 
 ## ライセンス
 
-Copyright (C) Saitama Sora Cam, よね/Yone
+Copyright (C) よね/Yone
