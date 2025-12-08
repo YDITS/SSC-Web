@@ -1,4 +1,4 @@
-/**
+/**!
  * 
  * SSC for Web
  * 
@@ -7,9 +7,13 @@
  * 
  */
 
-import { SSCWeb } from "./ssc-web.js";
+import { SSCWeb } from "./ssc-web/ssc-web.js";
+import { MapApiKey } from "./packages/maps/types/api-key.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
-    const app = new SSCWeb();
+    const app = new SSCWeb({
+        mapApiKey: new MapApiKey("wiAJ7OPjFLLf0qS0KJYa"),
+    });
+
     await app.run();
 });

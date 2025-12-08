@@ -7,7 +7,8 @@
  * 
  */
 
-import { DateFormatter } from "../../utils/date-formatter/date-formatter.js";
+import { DateFormatter } from "../../date-formatter/date-formatter.js";
+import { DateFormatterFormatTypes } from "../../date-formatter/types/format-types.js";
 
 export class P2pquakeItem {
     constructor(item) {
@@ -15,12 +16,12 @@ export class P2pquakeItem {
 
         this.publishedTime = DateFormatter.dateFormat({
             date: new Date(item.publishedTime),
-            formatType: DateFormatter.formatTypes.FULL
+            formatType: DateFormatterFormatTypes.FORMAT_TYPES.FULL
         });
 
         this.occurredTime = DateFormatter.dateFormat({
             date: new Date(item.occurredTime),
-            formatType: DateFormatter.formatTypes.TIME_ONLY_NO_SECONDS
+            formatType: DateFormatterFormatTypes.FORMAT_TYPES.TIME_ONLY_NO_SECONDS
         });
 
         this.occurredTime += "頃";

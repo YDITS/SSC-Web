@@ -1,4 +1,4 @@
-/**
+/**!
  * 
  * SSC for Web
  * 
@@ -7,12 +7,22 @@
  * 
  */
 
-export class Map {
-    constructor() { }
+import { MapApiKey } from "./types/api-key.js";
 
-    get apiKey() {
-        return ('wiAJ7OPjFLLf0qS0KJYa');
+export class Map {
+    /**
+     * @param {{
+     *     apiKey: MapApiKey,
+     * }} param0 
+     */
+    constructor({ apiKey }) {
+        this.#apiKey = apiKey;
     }
+
+    /**
+     * @type {MapApiKey}
+     */
+    #apiKey;
 
     get defaultLatLng() {
         return ([36.0047000, 137.5930000]);
@@ -26,7 +36,7 @@ export class Map {
         return ('https://api.maptiler.com/maps/8ec88df9-410c-4968-acf6-b79f27d971f1/style.json?key=GHvHPC7Le16USNGvdnNq');
     }
 
-    initMap() {
+    initialize() {
         this.map = L.map('map', {
             center: this.defaultLatLng,
             zoom: this.defaultZoom,
@@ -34,7 +44,7 @@ export class Map {
         });
 
         L.maptilerLayer({
-            apiKey: this.apiKey,
+            apiKey: this.#apiKey,
             style: this.mapStyle,
             navigationControl: false
         }).addTo(this.map);

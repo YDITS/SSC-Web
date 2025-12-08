@@ -1,4 +1,4 @@
-/**
+/**!
  * 
  * SSC for Web
  * 
@@ -7,11 +7,10 @@
  * 
  */
 
-export class DateFormatter {
-    constructor() { }
+import { DateFormatterFormatTypes } from "./types/format-types.js";
 
+export class DateFormatter {
     /**
-     * 
      * @param {{
      *     date: Date,
      *     formatType: string
@@ -20,10 +19,10 @@ export class DateFormatter {
      */
     static dateFormat({
         date,
-        formatType = this.formatTypes.FULL,
+        formatType = DateFormatterFormatTypes.FORMAT_TYPES.FULL,
     }) {
         return [
-            formatType === this.formatTypes.TIME_ONLY || formatType === this.formatTypes.TIME_ONLY_NO_SECONDS ? "" : [
+            formatType === DateFormatterFormatTypes.FORMAT_TYPES.TIME_ONLY || formatType === DateFormatterFormatTypes.FORMAT_TYPES.TIME_ONLY_NO_SECONDS ? "" : [
                 date.getFullYear(),
                 "年",
                 DateFormatter.#pad(date.getMonth() + 1),
@@ -31,12 +30,12 @@ export class DateFormatter {
                 DateFormatter.#pad(date.getDate()),
                 "日 ",
             ].join(""),
-            formatType === this.formatTypes.DATE_ONLY ? "" : [
+            formatType === DateFormatterFormatTypes.FORMAT_TYPES.DATE_ONLY ? "" : [
                 DateFormatter.#pad(date.getHours()),
                 "時",
                 DateFormatter.#pad(date.getMinutes()),
                 "分",
-                formatType === DateFormatter.formatTypes.TIME_ONLY_NO_SECONDS ? "" : [
+                formatType === DateFormatterFormatTypes.FORMAT_TYPES.TIME_ONLY_NO_SECONDS ? "" : [
                     DateFormatter.#pad(date.getSeconds()),
                     "秒",
                 ].join(""),
@@ -46,14 +45,5 @@ export class DateFormatter {
 
     static #pad(num) {
         return num.toString().padStart(2, '0');
-    }
-
-    static get formatTypes() {
-        return {
-            FULL: "FULL",
-            DATE_ONLY: "DATE_ONLY",
-            TIME_ONLY: "TIME_ONLY",
-            TIME_ONLY_NO_SECONDS: "TIME_ONLY_NO_SECONDS",
-        };
     }
 }

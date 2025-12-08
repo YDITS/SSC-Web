@@ -1,4 +1,4 @@
-/**
+/**!
  * 
  * SSC for Web
  * 
@@ -7,71 +7,83 @@
  * 
  */
 
-import { P2pquakeItem, P2pquakePoint } from "./data/p2pquake-data.js";
+import { Version } from "https://cdn.yoneyo.com/scripts/version@1.0.0/version.js";
 
-export class P2pquake {
-    constructor(map) {
-        this.map = map;
+import { Map } from "../packages/maps/map.js";
+import { MapApiKey } from "../packages/maps/types/api-key.js";
+import { P2pquake } from "../packages/p2pquake/p2pquake.js";
+import { P2pquakeItem, P2pquakePoint } from "../packages/p2pquake/data/p2pquake-data.js";
+
+export class SSCWeb {
+    static VERSION = new Version(1, 0, 0, Version.levels.dev);
+
+    static NAME = "SSC for Web";
+    static SHORT_NAME = "SSC-Web";
+    static DESCRIPTION = "Saitama Sora Cam が提供する防災情報Webアプリケーション。";
+
+    static DEFAULT_FETCH_INTERVAL_MS = 10000;
+
+    /**
+     * @param {{
+     *     mapApiKey: MapApiKey,
+     *     fetchIntervalMs: number,
+     * }} param0 
+     */
+    constructor({
+        mapApiKey,
+        fetchIntervalMs = SSCWeb.DEFAULT_FETCH_INTERVAL_MS,
+    }) {
+        if (!(mapApiKey instanceof MapApiKey)) {
+            throw new Error("`mapApiKey` must be an instance of MapApiKey.");
+        }
+
+        if (typeof fetchIntervalMs !== "number" || fetchIntervalMs < 1000) {
+            throw new Error("`fetchIntervalMs` must be a number greater than or equal to 1000.");
+        }
+
+        this.#mapApiKey = mapApiKey;
+        this.#fetchIntervalMs = fetchIntervalMs;
     }
 
     /**
-     * 震度表示の種類
-     * 0: 各都道府県
-     * 1: すべての観測点
-     * 2以上: すべての観測点のうち読み飛ばす間隔 (大規模な地震の場合、大きい値ほど軽量になる)
+     * @returns {Promise<void>}
      */
-    get mapType() {
-        return (1);
+    async run() {
+        this.map = new Map({
+            apiKey: this.#mapApiKey,
+        });
+
+        this.p2pquake = new P2pquake({
+            onGotNewEarthquakeInformation: ({ data }) => this.#onGotNewEarthquakeInformation({ data }),
+        });
+
+        await this.map.initialize();
+        await this.p2pquake.getEarthquakeInfo();
+
+        setInterval(async () => await this.mainloop(), this.#fetchIntervalMs);
     }
 
-    get apiEndpoint() {
-        return ('https://api.p2pquake.net/v2/history?codes=551&limit=1');
+    /**
+     * @returns {Promise<void>}
+     */
+    async mainloop() {
+        await this.p2pquake.getEarthquakeInfo();
     }
 
-    getEarthquakeInfo() {
-        fetch(this.apiEndpoint, {
-            headers: {}
-        })
-            .then(response => response.json())
-            .then(data => {
-                if (this.lastId === data[0].id) {
-                    this.lastId = data[0].id;
-                    return;
-                }
+    #mapApiKey;
+    #fetchIntervalMs;
 
-                this.lastId = data[0].id;
+    /**
+     * @param {{
+     *     data: P2pquakeItem[],
+     * }}
+     */
+    #onGotNewEarthquakeInformation({ data }) {
+        if (!Array.isArray(data) || data.length === 0) {
+            throw new Error("`data` must be a non-empty array of P2pquakeItem.");
+        }
 
-                let _data = [];
-
-                data.forEach(list => {
-                    _data.push(new P2pquakeItem({
-                        "type": list.issue.type,
-                        "publishedTime": list.issue.time,
-                        "occurredTime": list.earthquake.time,
-                        "hypoName": list.earthquake.hypocenter.name,
-                        "scale": list.earthquake.maxScale,
-                        "magnitude": list.earthquake.hypocenter.magnitude,
-                        "depth": list.earthquake.hypocenter.depth,
-                        "domesticTsunami": list.earthquake.domesticTsunami,
-                        "hypoLat": list.earthquake.hypocenter.latitude,
-                        "hypoLng": list.earthquake.hypocenter.longitude,
-                        "points": list.points,
-                    }));
-                });
-
-                this.displayEarthquakeInfo(_data);
-                this.displayEarthquakeScales(_data)
-                this.data = _data;
-            })
-            .catch(error => {
-                console.error('地震情報を取得できませんでした:', error);
-            });
-    }
-
-    displayEarthquakeInfo(data) {
         const latestData = data[0];
-
-        this.map.removeAllLayers();
 
         try {
             let $publishedTimeDisplay = document.getElementById('publishedTimeDisplay');
@@ -95,18 +107,21 @@ export class P2pquake {
             console.error(error);
         }
 
-        try {
-            let lat = latestData.hypocenter.lat;
-            let lng = latestData.hypocenter.lng;
+        const lat = latestData?.hypocenter?.lat;
+        const lng = latestData?.hypocenter?.lng;
 
+        if (typeof lat !== "number" || typeof lng !== "number") {
+            throw new Error("Hypocenter latitude and longitude must be numbers.");
+        }
+
+        try {
+            this.map.removeAllLayers();
             this.map.fitMap(lat, lng);
             this.map.setHypocenter(lat, lng);
         } catch (error) {
-            console.error(error);
+            throw new Error("Failed to update map with new earthquake information.");
         }
-    }
 
-    displayEarthquakeScales(data) {
         try {
             data = data[0].points;
             let points = [];
@@ -148,8 +163,6 @@ export class P2pquake {
                     "longitude": latLng.lng,
                 }));
             });
-
-            this.points = points;
         } catch (error) {
             console.error(error);
         }
@@ -230,3 +243,4 @@ export class P2pquake {
         }
     }
 }
+
