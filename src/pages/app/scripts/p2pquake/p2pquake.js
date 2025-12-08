@@ -71,6 +71,8 @@ export class P2pquake {
     displayEarthquakeInfo(data) {
         const latestData = data[0];
 
+        this.map.removeAllLayers();
+
         try {
             let $publishedTimeDisplay = document.getElementById('publishedTimeDisplay');
             let $infoTypeDisplay = document.getElementById('informationTitleDisplay');
@@ -97,9 +99,8 @@ export class P2pquake {
             let lat = latestData.hypocenter.lat;
             let lng = latestData.hypocenter.lng;
 
-            this.map.removeAllLayers();
-            this.map.setHypocenter(lat, lng);
             this.map.fitMap(lat, lng);
+            this.map.setHypocenter(lat, lng);
         } catch (error) {
             console.error(error);
         }
