@@ -180,7 +180,7 @@ export class SSCWeb {
         try {
             this.map.removeAllLayers();
             this.map.fitMap(lat, lng);
-            this.map.setHypocenter(lat, lng);
+            setTimeout(() => this.map.setHypocenter(lat, lng));
         } catch (error) {
             throw new Error("Failed to update map with new earthquake information.");
         }
