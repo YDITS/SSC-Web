@@ -12,24 +12,15 @@ export class MapApiKey {
      * @param {string} value 
      */
     constructor(value) {
-        this.value = value;
+        this.#value = value;
     }
-
-    /**
-     * @type {string}
-     */
-    value;
-
-    /**
-     * @type {string}
-     */
-    #value;
 
     get value() {
         return this.#value;
     }
 
-    set value(newValue) {
-        this.#value = newValue;
-    }
+    /**
+     * @type {string}
+     */
+    #value;
 }

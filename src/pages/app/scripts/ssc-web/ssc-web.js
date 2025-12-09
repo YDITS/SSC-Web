@@ -9,19 +9,54 @@
 
 import { Version } from "https://cdn.yoneyo.com/scripts/version@1.0.0/version.js";
 
-import { Map } from "../packages/maps/map.js";
-import { MapApiKey } from "../packages/maps/types/api-key.js";
-import { P2pquake } from "../packages/p2pquake/p2pquake.js";
-import { P2pquakeItem, P2pquakePoint } from "../packages/p2pquake/data/p2pquake-data.js";
+import { ElementsManager } from "../modules/elements-manager/elements-manager.js";
+import { Map } from "../modules/maps/map.js";
+import { MapApiKey } from "../modules/maps/types/api-key.js";
+import { P2pquake } from "../modules/p2pquake/p2pquake.js";
+import { P2pquakeItem, P2pquakePoint } from "../modules/p2pquake/data/p2pquake-data.js";
+import { Icons } from "../modules/icons/icons.js";
+import { AddressSearch } from "../modules/address-search/address-search.js";
 
+/**
+ * SSC for Web
+ */
 export class SSCWeb {
+    /**
+     * バージョン
+     * 
+     * @type {Version}
+     */
     static VERSION = new Version(1, 0, 0, Version.levels.dev);
 
+    /**
+     * アプリケーション名
+     */
     static NAME = "SSC for Web";
+
+    /**
+     * 短縮アプリケーション名
+     */
     static SHORT_NAME = "SSC-Web";
+
+    /**
+     * アプリケーション説明
+     */
     static DESCRIPTION = "Saitama Sora Cam が提供する防災情報Webアプリケーション。";
 
+    /**
+     * デフォルトの情報取得間隔 (ミリ秒)
+     */
     static DEFAULT_FETCH_INTERVAL_MS = 10000;
+
+    /**
+     * 震度表示の種類
+     * 0: 各都道府県
+     * 1: すべての観測点
+     * 2以上: すべての観測点のうち読み飛ばす間隔 (大規模な地震の場合、大きい値ほど軽量になる)
+     * 
+     * @returns {number}
+     */
+    static MAP_TYPE = 1;
 
     /**
      * @param {{
@@ -46,9 +81,13 @@ export class SSCWeb {
     }
 
     /**
+     * アプリを実行します
+     * 
      * @returns {Promise<void>}
      */
     async run() {
+        this.#loadElements();
+
         this.map = new Map({
             apiKey: this.#mapApiKey,
         });
@@ -64,19 +103,52 @@ export class SSCWeb {
     }
 
     /**
+     * メインループ
+     * 
      * @returns {Promise<void>}
      */
     async mainloop() {
         await this.p2pquake.getEarthquakeInfo();
     }
 
+    /**
+     * マップのAPIキー
+     * 
+     * @type {MapApiKey}
+     */
     #mapApiKey;
+
+    /**
+     * 情報取得間隔 (ミリ秒)
+     * 
+     * @type {number}
+     */
     #fetchIntervalMs;
 
     /**
+     * HTML要素を読み込みます
+     * 
+     * @returns {void}
+     */
+    #loadElements() {
+        this.elementsManager = new ElementsManager();
+        this.elementsManager.getFromCache('#publishedTimeDisplay');
+        this.elementsManager.getFromCache('#informationTitleDisplay');
+        this.elementsManager.getFromCache('#occurredTimeDisplay');
+        this.elementsManager.getFromCache('#hypocenterDisplay');
+        this.elementsManager.getFromCache('#maxIntDisplay');
+        this.elementsManager.getFromCache('#magnitudeDisplay');
+        this.elementsManager.getFromCache('#depthDisplay');
+        this.elementsManager.getFromCache('#tsunamiDisplay');
+    }
+
+    /**
+     * 新しい地震情報を取得したときの処理
+     * 
      * @param {{
      *     data: P2pquakeItem[],
      * }}
+     * @returns {void}
      */
     #onGotNewEarthquakeInformation({ data }) {
         if (!Array.isArray(data) || data.length === 0) {
@@ -86,23 +158,14 @@ export class SSCWeb {
         const latestData = data[0];
 
         try {
-            let $publishedTimeDisplay = document.getElementById('publishedTimeDisplay');
-            let $infoTypeDisplay = document.getElementById('informationTitleDisplay');
-            let $occurredTimeDisplay = document.getElementById('occurredTimeDisplay');
-            let $hypocenterDisplay = document.getElementById('hypocenterDisplay');
-            let $maxIntDisplay = document.getElementById('maxIntDisplay');
-            let $magnitudeDisplay = document.getElementById('magnitudeDisplay');
-            let $depthDisplay = document.getElementById('depthDisplay');
-            let $tsunamiDisplay = document.getElementById('tsunamiDisplay');
-
-            $publishedTimeDisplay.innerText = latestData.publishedTime;
-            $infoTypeDisplay.innerText = latestData.typeText;
-            $occurredTimeDisplay.innerText = latestData.occurredTime;
-            $hypocenterDisplay.innerText = latestData.hypocenter.name;
-            $maxIntDisplay.innerText = latestData.scaleText;
-            $magnitudeDisplay.innerText = latestData.magnitudeText;
-            $depthDisplay.innerText = latestData.depthText;
-            $tsunamiDisplay.innerText = latestData.tsunamiText;
+            this.elementsManager.getFromCache('#publishedTimeDisplay').innerText = latestData.publishedTime;
+            this.elementsManager.getFromCache('#informationTitleDisplay').innerText = latestData.typeText;
+            this.elementsManager.getFromCache('#occurredTimeDisplay').innerText = latestData.occurredTime;
+            this.elementsManager.getFromCache('#hypocenterDisplay').innerText = latestData.hypocenter.name;
+            this.elementsManager.getFromCache('#maxIntDisplay').innerText = latestData.scaleText;
+            this.elementsManager.getFromCache('#magnitudeDisplay').innerText = latestData.magnitudeText;
+            this.elementsManager.getFromCache('#depthDisplay').innerText = latestData.depthText;
+            this.elementsManager.getFromCache('#tsunamiDisplay').innerText = latestData.tsunamiText;
         } catch (error) {
             console.error(error);
         }
@@ -129,7 +192,7 @@ export class SSCWeb {
             let prefFlag = [];
 
             data.forEach(async point => {
-                if (this.mapType >= 2) {
+                if (SSCWeb.MAP_TYPE >= 2) {
                     if (flag == 40) {
                         flag = 0;
                     } else if (flag >= 1) {
@@ -138,7 +201,7 @@ export class SSCWeb {
                     }
 
                     flag++;
-                } else if (this.mapType == 0) {
+                } else if (SSCWeb.MAP_TYPE == 0) {
                     if (prefFlag.includes(point.pref)) {
                         return;
                     }
@@ -149,8 +212,8 @@ export class SSCWeb {
 
                 console.debug(flag);
 
-                let latLng = await this.getLatLng(point.pref + point.addr);
-                let iconUrl = this.iconUrl(String(point.scale));
+                let latLng = await AddressSearch.getLatLng(point.pref + point.addr);
+                let iconUrl = Icons.INT_ICONS[String(point.scale)] || Icons.INT_ICONS["-1"];
 
                 this.map.newPoint(latLng.lat, latLng.lng, iconUrl);
 
@@ -167,80 +230,4 @@ export class SSCWeb {
             console.error(error);
         }
     }
-
-    async getLatLng(title) {
-        let latLng = null;
-
-        let a = "https://";
-        let b = "msearch.";
-        let c = "gsi";
-        let d = ".go.jp";
-        let e = "/address-search";
-        let f = "/AddressSearch";
-        let g = "?q=";
-
-        await fetch(`https://msearch.gsi.go.jp/address-search/AddressSearch?q=${title}`)
-            .then(response => response.json())
-            .then(data => {
-                data = data[0];
-                let lng = data.geometry.coordinates[0];
-                let lat = data.geometry.coordinates[1];
-
-                latLng = {
-                    "lat": lat,
-                    "lng": lng,
-                }
-            });
-
-        return (latLng);
-    }
-
-    iconUrl(scale) {
-        switch (scale) {
-            case "-1":
-                return ("./images/radius/unknown.png");
-                break;
-
-            case "10":
-                return ("./images/square/1.png");
-                break;
-
-            case "20":
-                return ("./images/square/2.png");
-                break;
-
-            case "30":
-                return ("./images/square/3.png");
-                break;
-
-            case "40":
-                return ("./images/square/4.png");
-                break;
-
-            case "45":
-                return ("./images/square/5-.png");
-                break;
-
-            case "50":
-                return ("./images/square/5+.png");
-                break;
-
-            case "55":
-                return ("./images/square/6-.png");
-                break;
-
-            case "60":
-                return ("./images/square/6+.png");
-                break;
-
-            case "70":
-                return ("./images/square/7.png");
-                break;
-
-            default:
-                return ("./images/radius/unknown.png");
-                break;
-        }
-    }
 }
-
