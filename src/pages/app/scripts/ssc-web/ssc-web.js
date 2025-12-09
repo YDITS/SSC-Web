@@ -69,11 +69,11 @@ export class SSCWeb {
         fetchIntervalMs = SSCWeb.DEFAULT_FETCH_INTERVAL_MS,
     }) {
         if (!(mapApiKey instanceof MapApiKey)) {
-            throw new Error("`mapApiKey` must be an instance of MapApiKey.");
+            throw new Error("`mapApiKey` が `MapApiKey` クラスのインスタンスではありません");
         }
 
         if (typeof fetchIntervalMs !== "number" || fetchIntervalMs < 1000) {
-            throw new Error("`fetchIntervalMs` must be a number greater than or equal to 1000.");
+            throw new Error("`fetchIntervalMs` で 1000 未満のnumberが指定されました");
         }
 
         this.#mapApiKey = mapApiKey;
@@ -152,7 +152,7 @@ export class SSCWeb {
      */
     #onGotNewEarthquakeInformation({ data }) {
         if (!Array.isArray(data) || data.length === 0) {
-            throw new Error("`data` must be a non-empty array of P2pquakeItem.");
+            throw new Error("`data` が配列ではないか、空の配列です");
         }
 
         const latestData = data[0];
@@ -174,7 +174,7 @@ export class SSCWeb {
         const lng = latestData?.hypocenter?.lng;
 
         if (typeof lat !== "number" || typeof lng !== "number") {
-            throw new Error("Hypocenter latitude and longitude must be numbers.");
+            throw new Error("震源の緯度経度がnumberではありません。");
         }
 
         try {
@@ -182,7 +182,7 @@ export class SSCWeb {
             this.map.fitMap(lat, lng);
             setTimeout(() => this.map.setHypocenter(lat, lng));
         } catch (error) {
-            throw new Error("Failed to update map with new earthquake information.");
+            throw new Error("新しい地震情報のマップ更新中にエラーが発生しました");
         }
 
         try {

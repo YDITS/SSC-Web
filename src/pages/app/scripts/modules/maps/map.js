@@ -82,7 +82,7 @@ export class Map {
      */
     initializeHypocenter(lat, lng) {
         if (typeof lat !== 'number' || typeof lng !== 'number') {
-            throw new Error('緯度経度のデータ形式が不正です');
+            throw new Error("緯度経度が number ではありません");
         }
 
         this.hypocenterMarker = L.marker([lat, lng], {
@@ -106,7 +106,7 @@ export class Map {
         }
 
         if (typeof lat !== 'number' || typeof lng !== 'number') {
-            throw new Error('緯度経度のデータ形式が不正です');
+            throw new Error("緯度経度が number ではありません");
         }
 
         this.hypocenterMarker.setLatLng([lat, lng]);
@@ -120,7 +120,7 @@ export class Map {
      */
     fitMap(lat, lng) {
         if (typeof lat !== 'number' || typeof lng !== 'number') {
-            throw new Error('緯度経度のデータ形式が不正です');
+            throw new Error("緯度経度が number ではありません");
         }
 
         this.map.setView([lat, lng], 8);

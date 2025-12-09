@@ -60,7 +60,7 @@ export class DateFormatter {
      */
     static #pad(num) {
         if (typeof num !== "number") {
-            throw new Error("`num` must be a number.");
+            throw new Error("`num` が number ではありません");
         }
 
         return num.toString().padStart(2, '0');

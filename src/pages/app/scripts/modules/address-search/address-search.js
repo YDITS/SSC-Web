@@ -27,7 +27,7 @@ export class AddressSearch {
         const lng = data[0]?.geometry?.coordinates[0];
 
         if (typeof lat !== 'number' || typeof lng !== 'number') {
-            throw new Error('緯度経度のデータ形式が不正です');
+            throw new Error("緯度経度が number ではありません");
         }
 
         return { lat, lng };

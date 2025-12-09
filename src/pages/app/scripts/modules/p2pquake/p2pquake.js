@@ -27,7 +27,7 @@ export class P2pquake {
         onGotNewEarthquakeInformation = ({ data }) => { },
     }) {
         if (typeof onGotNewEarthquakeInformation !== "function") {
-            throw new Error("`onGotNewEarthquakeInformation` must be a function.");
+            throw new Error("`onGotNewEarthquakeInformation` が `function` コールバック関数ではありません");
         }
 
         this.#onGotNewEarthquakeInformationCallback = onGotNewEarthquakeInformation;
@@ -75,7 +75,7 @@ export class P2pquake {
         try {
             this.#onGotNewEarthquakeInformationCallback({ data: formattedData });
         } catch (error) {
-            console.error('コールバックの実行中にエラーが発生しました:', error);
+            console.error('コールバックの実行中にエラーが発生しました', error);
         }
     }
 
