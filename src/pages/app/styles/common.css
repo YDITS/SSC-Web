@@ -229,3 +229,31 @@ main {
 .ydits-copyright__image {
     width: 4.5rem;
 }
+
+/* debug-mode-marker */
+
+.debug-mode-marker {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    background-color: #e62;
+    color: #fff;
+    opacity: 0.8;
+    border-radius: 100vw;
+    padding: 0.2em 0.5em;
+    z-index: 9999;
+
+    display: none;
+
+    transition: font-size 0.3s,
+                background-color 0.3s;
+
+    &.enabled {
+        display: block;
+    }
+
+    &.highlight {
+        background-color: #f44;
+        font-size: 3rem;
+    }
+}
