@@ -19,7 +19,7 @@ export class Map {
      * デフォルトのズームレベル
      */
     static DEFAULT_ZOOM = 5;
-    
+
     /**
      * マップスタイルのJSONパス
      */
@@ -105,7 +105,7 @@ export class Map {
         if (typeof lat !== 'number' || typeof lng !== 'number') {
             throw new Error("緯度経度が number ではありません at setHypocenter");
         }
-        
+
         this.initializeHypocenter(lat, lng);
         // this.hypocenterMarker.setLatLng([lat, lng]);
     }

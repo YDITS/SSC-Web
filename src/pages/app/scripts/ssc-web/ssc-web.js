@@ -105,6 +105,8 @@ export class SSCWeb {
             }, 1000)
         }
 
+        document.getElementById("expandInformationDetailsButton").addEventListener("click", () => this.#onClickInformationDetailsButton());
+
         this.p2pquake = new P2pquake({
             onGotNewEarthquakeInformation: async ({ data }) => await this.#onGotNewEarthquakeInformation({ data }),
         });
@@ -153,6 +155,14 @@ export class SSCWeb {
         this.elementsManager.getFromCache('#magnitudeDisplay');
         this.elementsManager.getFromCache('#depthDisplay');
         this.elementsManager.getFromCache('#tsunamiDisplay');
+    }
+
+    /**
+     * @returns {void}
+     */
+    #onClickInformationDetailsButton() {
+        this.elementsManager.getFromCache("#informationDetails").classList.toggle("enabled");
+        this.elementsManager.getFromCache("#expandInformationDetails").classList.toggle("enabled");
     }
 
     /**
