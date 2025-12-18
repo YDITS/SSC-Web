@@ -1,0 +1,26 @@
+{
+    "manifest_version": 3,
+    "name": "SSC for Web",
+    "short_name": "SSC-Web",
+    "description": "Saitama Sora Cam (SSC) が提供する防災情報Webアプリケーション。",
+    "version": "1.0.0",
+    "minimum_chrome_version": "116",
+    "scope": "./",
+    "start_url": "./index.html",
+    "display": "standalone",
+    "display_override": [
+        "standalone"
+    ],
+    "icons": [
+        {
+            "src": "https://cdn.ydits.net/images/ydits-ssc-logos/ydits_for_ssc_icon_transparent_512px.png",
+            "type": "image/png",
+            "sizes": "512x512"
+        },
+        {
+            "src": "https://cdn.ydits.net/images/ydits-ssc-logos/ydits_for_ssc_icon_transparent_192px.png",
+            "type": "image/png",
+            "sizes": "192x192"
+        }
+    ]
+}
