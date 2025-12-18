@@ -26,7 +26,7 @@ export class SSCWeb {
      * 
      * @type {Version}
      */
-    static VERSION = new Version(1, 0, 0, Version.levels.stable);
+    static VERSION = new Version(1, 1, 0, Version.levels.stable);
 
     /**
      * アプリケーション名
@@ -92,8 +92,23 @@ export class SSCWeb {
             apiKey: this.#mapApiKey,
         });
 
+        if (new URL(window.location.href).searchParams.get("debug") === "enable") {
+            P2pquake.debugMode = true;
+            console.debug("⚠️: デバッグモードが有効です。");
+            document.getElementById("debugModeMarker").classList.add("enabled");
+
+            setTimeout(() => {
+                document.getElementById("debugModeMarker").classList.add("highlight");
+                setTimeout(() => {
+                    document.getElementById("debugModeMarker").classList.remove("highlight");
+                }, 2000)
+            }, 1000)
+        }
+
+        document.getElementById("expandInformationDetailsButton").addEventListener("click", () => this.#onClickInformationDetailsButton());
+
         this.p2pquake = new P2pquake({
-            onGotNewEarthquakeInformation: ({ data }) => this.#onGotNewEarthquakeInformation({ data }),
+            onGotNewEarthquakeInformation: async ({ data }) => await this.#onGotNewEarthquakeInformation({ data }),
         });
 
         await this.map.initialize();
@@ -143,14 +158,22 @@ export class SSCWeb {
     }
 
     /**
+     * @returns {void}
+     */
+    #onClickInformationDetailsButton() {
+        this.elementsManager.getFromCache("#informationDetails").classList.toggle("enabled");
+        this.elementsManager.getFromCache("#expandInformationDetails").classList.toggle("enabled");
+    }
+
+    /**
      * 新しい地震情報を取得したときの処理
      * 
      * @param {{
      *     data: P2pquakeItem[],
      * }}
-     * @returns {void}
+     * @returns {Promise<void>}
      */
-    #onGotNewEarthquakeInformation({ data }) {
+    async #onGotNewEarthquakeInformation({ data }) {
         if (!Array.isArray(data) || data.length === 0) {
             throw new Error("`data` が配列ではないか、空の配列です");
         }
@@ -172,15 +195,10 @@ export class SSCWeb {
 
         const lat = latestData?.hypocenter?.lat;
         const lng = latestData?.hypocenter?.lng;
-
-        if (typeof lat !== "number" || typeof lng !== "number") {
-            throw new Error("震源の緯度経度がnumberではありません。");
-        }
+        this.map.bounds = L.latLngBounds();
 
         try {
             this.map.removeAllLayers();
-            this.map.fitMap(lat, lng);
-            setTimeout(() => this.map.setHypocenter(lat, lng));
         } catch (error) {
             throw new Error("新しい地震情報のマップ更新中にエラーが発生しました");
         }
@@ -209,9 +227,6 @@ export class SSCWeb {
                     prefFlag.push(point.pref);
                 }
 
-
-                console.debug(flag);
-
                 let latLng = await AddressSearch.getLatLng(point.pref + point.addr);
                 let iconUrl = Icons.INT_ICONS[String(point.scale)] || Icons.INT_ICONS["-1"];
 
@@ -225,7 +240,25 @@ export class SSCWeb {
                     "latitude": latLng.lat,
                     "longitude": latLng.lng,
                 }));
+
+                this.map.bounds.extend(L.latLng(latLng.lat, latLng.lng));
             });
+        } catch (error) {
+            console.error(error);
+        }
+
+        try {
+            if (latestData.type !== "ScalePrompt") {
+                setTimeout(() => this.map.setHypocenter(lat, lng), 1000);
+                const hypocenterLatLng = L.latLng(lat, lng);
+                this.map.bounds.extend(hypocenterLatLng);
+            }
+            setTimeout(() => {
+                this.map.fitMap(this.map.bounds);
+            }, 2000);
+            setTimeout(() => {
+                this.map.fitMap(this.map.bounds);
+            }, 8000);
         } catch (error) {
             console.error(error);
         }

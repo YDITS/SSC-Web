@@ -51,7 +51,12 @@ main {
 
 .map {
     width: calc(100vw - var(--information-details--width));
-    height: 100vh;
+    height: 100dvh;
+
+    @media (max-width: 768px) {
+        transition: width 0.3s;
+        width: 100vw;
+    }
 }
 
 .map__item {
@@ -98,11 +103,24 @@ main {
 
     width: var(--information-details--width);
     height: 100vh;
-    border-left: 1px solid #fff2;
+    border-left: 1px solid #fff4;
 
     padding: 0.5rem 0.8rem;
     background-color: #111;
     color: #fff;
+
+    @media (max-width: 768px) {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        transition: right 0.3s;
+        z-index: calc(var(--map-item--z-index) + 1);
+
+        &.enabled {
+            right: 0;
+        }
+    }
+
 }
 
 .information-details__item {
@@ -129,12 +147,14 @@ main {
     font-size: 1.2rem;
     font-weight: bold;
     color: #ccc;
+    text-wrap: nowrap;
 }
 
 .information-details__description {
     display: flex;
     justify-content: end;
     width: 50%;
+    text-wrap: nowrap;
 }
 
 .information-details__display {
@@ -162,6 +182,52 @@ main {
 .magnitude__display {
     font-size: 2rem;
     font-weight: bold;
+}
+
+/* expand-information-details */
+
+.expand-information-details {
+    position: fixed;
+    top: 42vh;
+    right: 0;
+    height: fit-content;
+    z-index: calc(var(--map-item--z-index) + 2);
+
+    transition: right 0.3s;
+
+    & .close {
+        display: none;
+    }
+
+    &.enabled {
+        right: calc(var(--information-details--width) - 1px);
+
+        & .open {
+            display: none;
+        }
+
+        & .close {
+            display: block;
+        }
+    }
+}
+
+.expand-information-details__button {
+    display: none;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    border: none;
+    border-left: 1px solid #fff4;
+    border-top: 1px solid #fff4;
+    border-bottom: 1px solid #fff4;
+    border-radius: 0.5em 0 0 0.5em;
+    padding: 0.5em 0.2em;
+    background-color: #111;
+    color: var(--map-item--color);
+
+    @media (max-width: 768px) {
+        display: block;
+    }
 }
 
 /* icon-legends */
@@ -228,4 +294,32 @@ main {
 
 .ydits-copyright__image {
     width: 4.5rem;
+}
+
+/* debug-mode-marker */
+
+.debug-mode-marker {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    background-color: #e62;
+    color: #fff;
+    opacity: 0.8;
+    border-radius: 100vw;
+    padding: 0.2em 0.5em;
+    z-index: 9999;
+
+    display: none;
+
+    transition: font-size 0.3s,
+        background-color 0.3s;
+
+    &.enabled {
+        display: block;
+    }
+
+    &.highlight {
+        background-color: #f44;
+        font-size: 3rem;
+    }
 }

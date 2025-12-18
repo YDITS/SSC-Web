@@ -19,11 +19,12 @@ export class Map {
      * デフォルトのズームレベル
      */
     static DEFAULT_ZOOM = 5;
-    
+
     /**
      * マップスタイルのJSONパス
      */
     static MAP_STYLE = "https://api.maptiler.com/maps/8ec88df9-410c-4968-acf6-b79f27d971f1/style.json?key=GHvHPC7Le16USNGvdnNq";
+    // static MAP_STYLE_YDITS = "https://api.maptiler.com/maps/ba979b60-0cf8-4087-8cdc-5bb919540c08/style.json?key=3ft2uVdfAwtgfKQGIT8U";
 
     /**
      * @param {{
@@ -89,7 +90,8 @@ export class Map {
             icon: L.icon({
                 iconUrl: "./images/hypocenter.png",
                 iconSize: [32, 32]
-            })
+            }),
+            zIndexOffset: 999,
         }).addTo(this.map);
     }
 
@@ -100,30 +102,31 @@ export class Map {
      * @returns 
      */
     setHypocenter(lat, lng) {
-        if (!this.hypocenterMarker) {
-            this.initializeHypocenter(lat, lng);
-            return;
-        }
-
         if (typeof lat !== 'number' || typeof lng !== 'number') {
-            throw new Error("緯度経度が number ではありません");
+            throw new Error("緯度経度が number ではありません at setHypocenter");
         }
 
-        this.hypocenterMarker.setLatLng([lat, lng]);
+        this.initializeHypocenter(lat, lng);
+        // this.hypocenterMarker.setLatLng([lat, lng]);
     }
 
     /**
      * 指定された緯度/経度にマップを移動する
      * 
-     * @param {number} lat
-     * @param {number} lng
+     * @param {L.latLng | LatLng | {lat: number, lng: number } | [number, number] } latLng
      */
-    fitMap(lat, lng) {
-        if (typeof lat !== 'number' || typeof lng !== 'number') {
-            throw new Error("緯度経度が number ではありません");
-        }
+    moveMap(latLng) {
+        this.map.setView(latLng, 8);
+    }
 
-        this.map.setView([lat, lng], 8);
+    /**
+     * 指定された緯度+経度+Boundsにマップを移動する
+     * 
+     * @param {L.latLngBounds | LatLngBounds | LatLng[]} bounds
+     */
+    fitMap(bounds) {
+        this.map.fitBounds(bounds, { maxZoom: 8 });
+        this.map.zoomOut(0.5);
     }
 
     /**
@@ -148,4 +151,11 @@ export class Map {
      * @type {MapApiKey}
      */
     #apiKey;
+
+    /**
+     * Bounds
+     * 
+     * @type {L.LatLngBounds}
+     */
+    bounds;
 }

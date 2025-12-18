@@ -93,6 +93,10 @@ export class P2pquakeItem {
      * 震度の文字列表現
      */
     get scaleText() {
+        if (this.type === "Destination") {
+            return "-";
+        }
+
         return P2pquakeItem.SCALE_TEXT_TO_JP[String(this.scale)] || P2pquakeItem.SCALE_TEXT_TO_JP["-1"];
     }
 
@@ -100,6 +104,10 @@ export class P2pquakeItem {
      * 震源深さの文字列表現
      */
     get depthText() {
+        if (this.type === "ScalePrompt") {
+            return ("調査中");
+        }
+
         if (this.depth === -1) {
             return ("不明");
         } else if (this.depth === 0) {
@@ -113,6 +121,10 @@ export class P2pquakeItem {
      * 地震の規模 (マグニチュード Mj) の文字列表現
      */
     get magnitudeText() {
+        if (this.type === "ScalePrompt") {
+            return ("調査中");
+        }
+
         if (this.magnitude === -1) {
             return ("不明");
         } else {

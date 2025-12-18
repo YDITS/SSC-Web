@@ -20,11 +20,11 @@ export class P2pquake {
 
     /**
      * @param {{
-     *     onGotNewEarthquakeInformation: ({ data: P2pquakeItem[] }) => any,
+     *     onGotNewEarthquakeInformation: async ({ data: P2pquakeItem[] }) => Promise<any>,
      * }}
      */
     constructor({
-        onGotNewEarthquakeInformation = ({ data }) => { },
+        onGotNewEarthquakeInformation = async ({ data }) => { },
     }) {
         if (typeof onGotNewEarthquakeInformation !== "function") {
             throw new Error("`onGotNewEarthquakeInformation` が `function` コールバック関数ではありません");
@@ -39,7 +39,15 @@ export class P2pquake {
      * @returns {Promise<void>}
      */
     async getEarthquakeInfo() {
-        const response = await fetch(P2pquake.API_ENDPOINT);
+        let url;
+
+        if (P2pquake.debugMode === true) {
+            url = P2pquake.API_ENDPOINT + "&offset=" + new Date().getSeconds();
+        } else {
+            url = P2pquake.API_ENDPOINT;
+        }
+
+        const response = await fetch(url);
         const data = await response.json();
 
         if (this.lastId === data[0].id) {
@@ -73,7 +81,7 @@ export class P2pquake {
         this.#latestData = formattedData;
 
         try {
-            this.#onGotNewEarthquakeInformationCallback({ data: formattedData });
+            await this.#onGotNewEarthquakeInformationCallback({ data: formattedData });
         } catch (error) {
             console.error('コールバックの実行中にエラーが発生しました', error);
         }
@@ -91,7 +99,7 @@ export class P2pquake {
     /**
      * 新しい地震情報を取得したときのコールバック関数
      * 
-     * @type {({ data: P2pquakeItem[] }) => any}
+     * @type {async ({ data: P2pquakeItem[] }) => Promise<any>}
      */
     #onGotNewEarthquakeInformationCallback;
 
@@ -101,4 +109,6 @@ export class P2pquake {
      * @type {P2pquakeItem[]}
      */
     #latestData;
+
+    static debugMode = false;
 }
