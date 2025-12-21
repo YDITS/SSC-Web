@@ -140,7 +140,7 @@ export class Map {
         L.marker([lat, lng], {
             icon: L.icon({
                 iconUrl: iconUrl,
-                iconSize: [32, 32]
+                iconSize: [24, 24]
             })
         }).addTo(this.map);
     }
