@@ -16,6 +16,8 @@
     --font-weight: 400;
     --font-family: 'Noto Sans JP', 'Roboto', sans-serif;
 
+    --link-color: #25caa9;
+
     --map-item--border-radius: 0.5rem;
     --map-item--bgcolor: #000000c0;
     --map-item--color: #ffffffff;
@@ -375,10 +377,7 @@ main {
     box-sizing: border-box;
     width: 100vw;
     max-width: clamp(48rem, 48rem, 100vw);
-    height: 80vh;
-    /* height: fit-content;
-    min-height: min(28rem, 90dvh);
-    max-height: 90dvh; */
+    height: 90vh;
     outline: 1px solid #fff1;
     border-radius: 1rem 1rem 0 0;
 
@@ -526,6 +525,10 @@ main {
 
     &:first-child {
         border-top: none;
+    }
+
+    & a {
+        color: var(--link-color);
     }
 }
 
