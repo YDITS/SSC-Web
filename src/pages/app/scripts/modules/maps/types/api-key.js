@@ -12,6 +12,10 @@ export class MapApiKey {
      * @param {string} value 
      */
     constructor(value) {
+        if (typeof value !== "string" || value.length === 0) {
+            throw new Error("Map API Key が有効な string ではありません");
+        }
+
         this.#value = value;
     }
 

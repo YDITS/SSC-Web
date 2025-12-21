@@ -16,6 +16,7 @@
     <title>SSC for Web</title>
     <meta name="description" content="Saitama Sora Cam が提供する防災情報Webアプリケーション。">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark light">
 
     <!-- preconnects -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -185,6 +186,134 @@
                 <span class="close">＞&nbsp;閉じる</span>
             </button>
         </div>
+
+        <div id="menu-button-wrapper" class="modal-button__wrapper menu-button__wrapper">
+            <button id="menu-button" class="modal-button menu-button" data-target="menu-modal">
+                <svg xmlns="http://www.w3.org/2000/svg" height="32px" viewBox="0 -960 960 960" width="32px" fill="#fff">
+                    <path
+                        d="M120-240v-66.67h720V-240H120Zm0-206.67v-66.66h720v66.66H120Zm0-206.66V-720h720v66.67H120Z" />
+                </svg>
+            </button>
+        </div>
+
+        <div id="modals" class="modals">
+            <div id="menu-modal" class="modal menu-modal">
+                <div id="menu-modal-title-bar" class="modal__title-bar menu-modal__title-bar">
+                    <h2 class="modal__title menu__title">メニュー</h2>
+
+                    <button id="menu-modal-close-button" class="modal__close-button menu__close-button"
+                        data-target="menu-modal">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px"
+                            fill="#fff">
+                            <path
+                                d="m251.33-204.67-46.66-46.66L433.33-480 204.67-708.67l46.66-46.66L480-526.67l228.67-228.66 46.66 46.66L526.67-480l228.66 228.67-46.66 46.66L480-433.33 251.33-204.67Z" />
+                        </svg>
+                    </button>
+                </div>
+
+                <div id="menu-modal-content" class="modal__content">
+                    <section class="menu__section settings">
+                        <h3 class="menu__section__title settings__title">設定</h3>
+
+                        <div class="settings__item">
+                            <div class="settings__title">
+                                震度アイコン
+                            </div>
+
+                            <div class="settings__action">
+                                <select id="scale-icon-settings-select" name="scale-icon"
+                                    class="settings__select scale-icon-settings__select">
+                                    <option value="ssc-v1" class="scale-icon-settings__option">SSC v1</option>
+                                    <option value="ssc-v2" class="scale-icon-settings__option" selected>SSC v2</option>
+                                    <option value="ydits" class="scale-icon-settings__option" disabled>YDITS震度配色 (未対応)
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div id="scale-icon-settings-preview" class="scale-icon-settings-preview">
+                            <p>プレビュー</p>
+                            <div id="scale-icon-settings-preview-root" class="scale-icon-settings-preview__root"></div>
+                        </div>
+                    </section>
+
+                    <section class="menu__section licenses">
+                        <h3 class="menu__section__title licenses__title">ライセンス</h3>
+
+                        <ul class="licenses__list">
+                            <li class="licenses__item">
+                                <h4 class="licenses__name" style="font-size: 1.3rem; font-weight: bold;">
+                                    SSC for Web
+                                </h4>
+
+                                <div class="licenses__copyright">
+                                    &copy; Saitama Sora Cam, よね/Yone
+                                </div>
+                            </li>
+
+                            <li class="licenses__item">
+                                <h4 class="licenses__name">
+                                    国土交通省 気象庁
+                                </h4>
+
+                                <div class="licenses__resouces">
+                                    <p>
+                                        地震情報の提供
+                                    </p>
+                                </div>
+
+                                <div class="licenses__license">
+                                    <p>
+                                        Licensed under the CC BY 4.0
+                                    </p>
+                                </div>
+
+                                <div class="licenses__copyright">
+                                    &copy; Saitama Sora Cam, よね/Yone
+                                </div>
+                            </li>
+
+                            <li class="licenses__item">
+                                <h4 class="licenses__name">
+                                    P2P地震情報 JSON API v2
+                                </h4>
+
+                                <div class="licenses__resouces">
+                                    <p>
+                                        地震情報データ API の提供
+                                    </p>
+                                </div>
+
+                                <div class="licenses__license">
+                                    <p>
+                                        Licensed under the CC BY 4.0
+                                    </p>
+                                </div>
+
+                                <div class="licenses__copyright">
+                                    &copy; P2P地震情報
+                                </div>
+                            </li>
+                        </ul>
+                    </section>
+
+                    <section class="menu__section disclaimer">
+                        <h3 class="menu__section__title disclaimer__title">免責事項</h3>
+
+                        <ul class="disclaimer__list">
+                            <li class="disclaimer__item">
+                                気象庁から発表された情報をそのまま表示しています。気象業務法に該当する予測等を行っていません。
+                            </li>
+
+                            <li class="disclaimer__item">
+                                本サイト内のコンテンツの著作権は、その著作者に帰属します。
+                            </li>
+                        </ul>
+                    </section>
+                </div>
+            </div>
+        </div>
+
 
         <div id="debugModeMarker" class="debug-mode-marker">
             <span>Debug Mode</span>

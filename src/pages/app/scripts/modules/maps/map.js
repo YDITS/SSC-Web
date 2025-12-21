@@ -136,12 +136,13 @@ export class Map {
      * @param {number} lng 
      * @param {string} iconUrl 
      */
-    newPoint(lat, lng, iconUrl) {
+    newPoint(lat, lng, iconUrl, zIndexOffset = 100) {
         L.marker([lat, lng], {
             icon: L.icon({
                 iconUrl: iconUrl,
-                iconSize: [24, 24]
-            })
+                iconSize: [24, 24],
+            }),
+            zIndexOffset: zIndexOffset,
         }).addTo(this.map);
     }
 
