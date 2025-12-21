@@ -323,3 +323,9 @@ main {
         font-size: 3rem;
     }
 }
+
+/* leaflet */
+
+.leaflet-control-attribution {
+    display: none;
+}
