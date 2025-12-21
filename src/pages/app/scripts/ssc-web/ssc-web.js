@@ -96,6 +96,7 @@ export class SSCWeb {
             this.#enableDebugMode();
         }
 
+        document.getElementById("menu-version").textContent = `Vers ${SSCWeb.VERSION.string}`;
         document.getElementById("expandInformationDetailsButton").addEventListener("click", () => this.#onClickInformationDetailsButton());
         const modals = document.getElementById("modals");
 
