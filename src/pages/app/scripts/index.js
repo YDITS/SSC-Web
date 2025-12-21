@@ -23,11 +23,26 @@ document.addEventListener("DOMContentLoaded", () => {
  * @returns {Promise<void>}
  */
 async function run() {
-    const mapApiKey = new MapApiKey(Config.MAP_API_KEY);
+    /**
+     * @type {MapApiKey | null}
+     */
+    let mapApiKey;
 
-    const app = new SSCWeb({
-        mapApiKey: mapApiKey,
-    });
+    try {
+        mapApiKey = new MapApiKey(Config.MAP_API_KEY);
+    } catch (error) {
+        console.error("MapApiKey のイニシャライズに失敗しました:", error.stack);
+        alert(`MapApiKey のイニシャライズに失敗しました: ${error.stack}`);
+        mapApiKey = null;
+    }
+
+    const debugMode = isDebugModeFromURLParam();
+
+    const app = new SSCWeb({ mapApiKey, debugMode });
 
     await app.run();
+}
+
+function isDebugModeFromURLParam() {
+    return new URL(window.location.href).searchParams.get("debug") !== null;
 }

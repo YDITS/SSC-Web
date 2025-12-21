@@ -3,7 +3,7 @@
     "name": "SSC for Web",
     "short_name": "SSC-Web",
     "description": "Saitama Sora Cam (SSC) が提供する防災情報Webアプリケーション。",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "minimum_chrome_version": "116",
     "scope": "./",
     "start_url": "./index.html",

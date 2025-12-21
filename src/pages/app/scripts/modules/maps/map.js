@@ -88,7 +88,7 @@ export class Map {
 
         this.hypocenterMarker = L.marker([lat, lng], {
             icon: L.icon({
-                iconUrl: "./images/hypocenter.png",
+                iconUrl: "./images/v2/hypocenter.png",
                 iconSize: [32, 32]
             }),
             zIndexOffset: 999,
@@ -136,12 +136,13 @@ export class Map {
      * @param {number} lng 
      * @param {string} iconUrl 
      */
-    newPoint(lat, lng, iconUrl) {
+    newPoint(lat, lng, iconUrl, zIndexOffset = 100) {
         L.marker([lat, lng], {
             icon: L.icon({
                 iconUrl: iconUrl,
-                iconSize: [32, 32]
-            })
+                iconSize: [24, 24],
+            }),
+            zIndexOffset: zIndexOffset,
         }).addTo(this.map);
     }
 
