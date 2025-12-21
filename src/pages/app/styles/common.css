@@ -377,7 +377,7 @@ main {
     box-sizing: border-box;
     width: 100vw;
     max-width: clamp(48rem, 48rem, 100vw);
-    height: 90vh;
+    height: 80vh;
     outline: 1px solid #fff1;
     border-radius: 1rem 1rem 0 0;
 
