@@ -42,6 +42,7 @@ export class Map {
      */
     async initialize() {
         this.map = L.map('map', {
+            attributionControl: false,
             center: Map.DEFAULT_LAT_LNG,
             zoom: Map.DEFAULT_ZOOM,
             minZoom: 4,
