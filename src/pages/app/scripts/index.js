@@ -26,23 +26,61 @@ async function run() {
     /**
      * @type {MapApiKey | null}
      */
-    let mapApiKey;
+    const mapApiKey = initializeMapApiKey(Config.MAP_API_KEY);
 
-    try {
-        mapApiKey = new MapApiKey(Config.MAP_API_KEY);
-    } catch (error) {
-        console.error("MapApiKey のイニシャライズに失敗しました:", error.stack);
-        alert(`MapApiKey のイニシャライズに失敗しました: ${error.stack}`);
-        mapApiKey = null;
-    }
-
+    /**
+     * @type {boolean}
+     */
     const debugMode = isDebugModeFromURLParam();
 
-    const app = new SSCWeb({ mapApiKey, debugMode });
+    /**
+     * @type {SSCWeb}
+     */
+    const app = initializeSSCWeb({ mapApiKey, debugMode });
 
     await app.run();
 }
 
+/**
+ * MapApiKey をイニシャライズします  
+ * MAP_API_KEY の値が不正なときは null を返します。
+ * @param {string} apiKey
+ * @returns {MapApiKey | null}
+ */
+function initializeMapApiKey(apiKey) {
+    try {
+        return new MapApiKey(apiKey);
+    } catch (error) {
+        onFailedInitializeMapApiKey(error);
+        return null;
+    }
+}
+
+/**
+ * MapApiKey のイニシャライズに失敗したときの処理
+ * @param {*} error
+ */
+function onFailedInitializeMapApiKey(error) {
+    console.error("MapApiKey のイニシャライズに失敗しました:", error.stack);
+    alert(`MapApiKey のイニシャライズに失敗しました: ${error.stack}`);
+}
+
+/**
+ * SSCWeb をイニシャライズします
+ * @param {{
+ *     mapApiKey: MapApiKey | null,
+ *     debugMode: boolean,
+ * }}
+ * @returns {SSCWeb | null}
+ */
+function initializeSSCWeb({ mapApiKey, debugMode }) {
+    return new SSCWeb({ mapApiKey, debugMode });
+}
+
+/**
+ * URL パラメータからデバッグモードかどうかを取得します
+ * @returns {URL}
+ */
 function isDebugModeFromURLParam() {
     return new URL(window.location.href).searchParams.get("debug") !== null;
 }
