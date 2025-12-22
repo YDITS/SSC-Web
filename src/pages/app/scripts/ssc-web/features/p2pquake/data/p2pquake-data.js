@@ -9,7 +9,7 @@
 
 import { DateFormatter } from "../../date-formatter/date-formatter.js";
 import { DateFormatterFormatTypes } from "../../date-formatter/types/format-types.js";
-import { parseFloatToFixedOne } from "../../../libs/utils/parse-float-to-fixed-one.js";
+import { parseFloatToFixedOne } from "../../../core/utils/parse-float-to-fixed-one.js";
 
 export class P2pquakeItem {
     /**
