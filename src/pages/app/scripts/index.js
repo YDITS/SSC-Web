@@ -13,7 +13,8 @@ import { MapApiKey } from "./modules/maps/types/api-key.js";
 
 document.addEventListener("DOMContentLoaded", () => {
     run().catch(error => {
-        console.error("アプリのイニシャライズ中にエラーが発生しました", error);
+        console.error("アプリケーションのイニシャライズに失敗しました", error);
+        alert(`アプリケーションのイニシャライズに失敗しました: ${error.stack}`);
     });
 });
 
@@ -79,7 +80,7 @@ function initializeSSCWeb({ mapApiKey, debugMode }) {
 
 /**
  * URL パラメータからデバッグモードかどうかを取得します
- * @returns {URL}
+ * @returns {boolean}
  */
 function isDebugModeFromURLParam() {
     return new URL(window.location.href).searchParams.get("debug") !== null;
