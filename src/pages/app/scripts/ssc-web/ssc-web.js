@@ -10,13 +10,13 @@
 import { Version } from "https://cdn.yoneyo.com/scripts/version@1.0.0/version.js";
 import { Render } from "https://cdn.yoneyo.com/scripts/render@1.0.0/render.js";
 
-import { ElementsManager } from "../modules/elements-manager/elements-manager.js";
-import { Map } from "../modules/maps/map.js";
-import { MapApiKey } from "../modules/maps/types/api-key.js";
-import { P2pquake } from "../modules/p2pquake/p2pquake.js";
-import { P2pquakeItem, P2pquakePoint } from "../modules/p2pquake/data/p2pquake-data.js";
-import { Icons } from "../modules/icons/icons.js";
-import { AddressSearch } from "../modules/address-search/address-search.js";
+import { ElementsManager } from "../features/elements-manager/elements-manager.js";
+import { Map } from "../features/maps/map.js";
+import { MapApiKey } from "../features/maps/types/api-key.js";
+import { P2pquake } from "../features/p2pquake/p2pquake.js";
+import { P2pquakeItem, P2pquakePoint } from "../features/p2pquake/data/p2pquake-data.js";
+import { Icons } from "../features/icons/icons.js";
+import { AddressSearch } from "../features/address-search/address-search.js";
 
 /**
  * SSC for Web

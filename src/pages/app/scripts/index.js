@@ -8,9 +8,9 @@
  */
 
 import { Render } from "https://cdn.yoneyo.com/scripts/render@1.0.0/render.js";
-import { SSCWeb } from "./ssc-web/ssc-web.js";
 import { Config } from "./config.js";
-import { MapApiKey } from "./modules/maps/types/api-key.js";
+import { SSCWeb } from "./ssc-web/ssc-web.js";
+import { MapApiKey } from "./features/maps/types/api-key.js";
 
 /**
  * デバッグモードフラグのURLパラメータ
