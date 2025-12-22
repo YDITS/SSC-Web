@@ -31,21 +31,29 @@ export class DateFormatter {
             "時",
             DateFormatter.#pad(date.getMinutes()),
             "分",
-            formatType === DateFormatterFormatTypes.FORMAT_TYPES.TIME_ONLY_NO_SECONDS ? "" : secondsPart,
+            formatType === DateFormatterFormatTypes.FORMAT_TYPES.TIME_ONLY_NO_SECONDS || formatType === DateFormatterFormatTypes.FORMAT_TYPES.DATETIME_ONLY_NO_YEARS_NO_SECONDS ? "" : secondsPart,
+        ].join("");
+
+        const yearPart = [
+            date.getFullYear(),
+            "年",
+        ].join("");
+
+        const monthPart = [
+            DateFormatter.#pad(date.getMonth() + 1),
+            "月",
         ].join("");
 
         const datePart = [
-            date.getFullYear(),
-            "年",
-            DateFormatter.#pad(date.getMonth() + 1),
-            "月",
+            formatType === DateFormatterFormatTypes.FORMAT_TYPES.DATETIME_ONLY_NO_YEARS_NO_SECONDS || formatType === DateFormatterFormatTypes.FORMAT_TYPES.DATETIME_ONLY_NO_YEARSDATE_NO_SECONDS ? "" : yearPart,
+            formatType === DateFormatterFormatTypes.FORMAT_TYPES.DATETIME_ONLY_NO_YEARSDATE_NO_SECONDS ? "" : monthPart,
             DateFormatter.#pad(date.getDate()),
             "日",
         ].join("");
 
         const formatted = [
             formatType === DateFormatterFormatTypes.FORMAT_TYPES.TIME_ONLY || formatType === DateFormatterFormatTypes.FORMAT_TYPES.TIME_ONLY_NO_SECONDS ? "" : datePart,
-            formatType === DateFormatterFormatTypes.FORMAT_TYPES.FULL ? " " : "",
+            formatType === DateFormatterFormatTypes.FORMAT_TYPES.FULL || formatType === DateFormatterFormatTypes.FORMAT_TYPES.DATETIME_ONLY_NO_YEARS_NO_SECONDS ? " " : "",
             formatType === DateFormatterFormatTypes.FORMAT_TYPES.DATE_ONLY ? "" : timePart,
         ].join("");
 
