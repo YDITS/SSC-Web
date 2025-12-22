@@ -9,6 +9,7 @@
 
 import { DateFormatter } from "../../date-formatter/date-formatter.js";
 import { DateFormatterFormatTypes } from "../../date-formatter/types/format-types.js";
+import { parseFloatToFixedOne } from "../../utils/parse-float-to-fixed-one.js";
 
 export class P2pquakeItem {
     /**
@@ -128,7 +129,8 @@ export class P2pquakeItem {
         if (this.magnitude === -1) {
             return ("不明");
         } else {
-            return (`M ${this.magnitude}`);
+            const fixedMagnitude = parseFloatToFixedOne(this.magnitude);
+            return (`M ${fixedMagnitude}`);
         }
     }
 
