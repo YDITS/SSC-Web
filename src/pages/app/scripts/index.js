@@ -11,6 +11,12 @@ import { SSCWeb } from "./ssc-web/ssc-web.js";
 import { Config } from "./config.js";
 import { MapApiKey } from "./modules/maps/types/api-key.js";
 
+/**
+ * デバッグモードフラグのURLパラメータ
+ * @type {string}
+ */
+const DEBUG_URL_PARAM_KEY = "debug";
+
 document.addEventListener("DOMContentLoaded", () => {
     run().catch(error => {
         console.error("アプリケーションのイニシャライズに失敗しました", error);
@@ -32,7 +38,7 @@ async function run() {
     /**
      * @type {boolean}
      */
-    const debugMode = isDebugModeFromURLParam();
+    const debugMode = isDebugModeFromURLParamOfCurrentWindowLocation(DEBUG_URL_PARAM_KEY);
 
     /**
      * @type {SSCWeb}
@@ -82,6 +88,16 @@ function initializeSSCWeb({ mapApiKey, debugMode }) {
  * URL パラメータからデバッグモードかどうかを取得します
  * @returns {boolean}
  */
-function isDebugModeFromURLParam() {
-    return new URL(window.location.href).searchParams.get("debug") !== null;
+function isDebugModeFromURLParamOfCurrentWindowLocation(paramKey) {
+    const urlParams = initializeURLSearchParamsOfCurrentWindowLocation();
+    const debugMode = urlParams.get(paramKey);
+    return debugMode !== null;
+}
+
+/**
+ * URLSearchParams をイニシャライズします
+ * @returns {URLSearchParams}
+ */
+function initializeURLSearchParamsOfCurrentWindowLocation() {
+    return new URLSearchParams(window.location.search);
 }
