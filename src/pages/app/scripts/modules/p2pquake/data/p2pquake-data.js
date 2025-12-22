@@ -69,7 +69,7 @@ export class P2pquakeItem {
             formatType: DateFormatterFormatTypes.FORMAT_TYPES.TIME_ONLY_NO_SECONDS
         });
 
-        this.occurredTime += " 頃";
+        this.occurredTime += " ごろ";
 
         this.scale = item.scale;
         this.magnitude = item.magnitude;
