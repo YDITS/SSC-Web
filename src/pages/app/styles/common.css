@@ -174,17 +174,20 @@ main {
     font-size: 1rem;
 }
 
+.occurred-time,
 .hypocenter,
 .tsunami {
     flex-direction: column;
     gap: 0.5rem;
 }
 
-.hypocenter__term,
+.occurred-time__term,
+.occurred-time__description,
 .hypocenter__description,
-.tsunami__term,
-.tsunami__description,
+.hypocenter__term,
 .hypocenter__display,
+.tsunami__description,
+.tsunami__term,
 .tsunami__display {
     width: 100%;
 }
