@@ -66,10 +66,10 @@ export class P2pquakeItem {
 
         this.occurredTime = DateFormatter.dateFormat({
             date: new Date(item.occurredTime),
-            formatType: DateFormatterFormatTypes.FORMAT_TYPES.TIME_ONLY_NO_SECONDS
+            formatType: DateFormatterFormatTypes.FORMAT_TYPES.DATETIME_ONLY_NO_YEARSDATE_NO_SECONDS
         });
 
-        this.occurredTime += " 頃";
+        this.occurredTime += " ごろ";
 
         this.scale = item.scale;
         this.magnitude = item.magnitude;
