@@ -7,6 +7,7 @@
  * 
  */
 
+import { Render } from "https://cdn.yoneyo.com/scripts/render@1.0.0/render.js";
 import { SSCWeb } from "./ssc-web/ssc-web.js";
 import { Config } from "./config.js";
 import { MapApiKey } from "./modules/maps/types/api-key.js";
@@ -69,7 +70,52 @@ function initializeMapApiKey(apiKey) {
  */
 function onFailedInitializeMapApiKey(error) {
     console.error("MapApiKey のイニシャライズに失敗しました:", error.stack);
-    alert(`MapApiKey のイニシャライズに失敗しました: ${error.stack}`);
+    displayFailedInitializeMapApiKey(error);
+}
+
+/**
+ * マップの表示の失敗をレンダリングします
+  * @returns {void}
+ */
+function displayFailedInitializeMapApiKey(error) {
+    /**
+     * @type {Render}
+     */
+    const render = new Render();
+
+    /**
+     * @type {{
+     *     $p: ({ textContent }: { textContent: string }) => HTMLElement,
+     *     $style: ({ innerHTML }: { innerHTML: string }) => HTMLElement,
+     * }}
+     */
+    const { $div, $p, $style } = render;
+
+    /**
+     * @type {HTMLElement}
+     */
+    const $map = document.getElementById("map");
+
+    render.build({
+        target: $map,
+        children: [
+            $div({
+                children: [
+                    $p({
+                        id: "map-error-message",
+                        textContent: `マップの表示に失敗しました: MapApiKey のイニシャライズに失敗しました: ${error.message}`,
+                    }),
+                ],
+            }),
+            $style({
+                textContent: (`
+                    #map-error-message {
+                        color: #f88;
+                    }
+                `),
+            }),
+        ],
+    });
 }
 
 /**

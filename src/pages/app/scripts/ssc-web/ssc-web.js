@@ -335,12 +335,14 @@ export class SSCWeb {
 
         const lat = latestData?.hypocenter?.lat;
         const lng = latestData?.hypocenter?.lng;
-        this.map.bounds = L.latLngBounds();
 
-        try {
-            this.map.removeAllLayers();
-        } catch (error) {
-            throw new Error("新しい地震情報のマップ更新中にエラーが発生しました");
+        if (this.map instanceof Map) {
+            try {
+                this.map.bounds = L.latLngBounds();
+                this.map.removeAllLayers();
+            } catch (error) {
+                throw new Error("新しい地震情報のマップ更新中にエラーが発生しました");
+            }
         }
 
         try {
