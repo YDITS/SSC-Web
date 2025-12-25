@@ -7,9 +7,16 @@
  * 
  */
 
-import { SSCWeb } from "./ssc-web/ssc-web.js";
+import { Render } from "https://cdn.yoneyo.com/scripts/render@1.0.0/render.js";
 import { Config } from "./config.js";
-import { MapApiKey } from "./modules/maps/types/api-key.js";
+import { SSCWeb } from "./ssc-web/ssc-web.js";
+import { MapApiKey } from "./ssc-web/features/maps/types/api-key.js";
+
+/**
+ * デバッグモードフラグのURLパラメータ
+ * @type {string}
+ */
+const DEBUG_URL_PARAM_KEY = "debug";
 
 document.addEventListener("DOMContentLoaded", () => {
     run().catch(error => {
@@ -32,7 +39,7 @@ async function run() {
     /**
      * @type {boolean}
      */
-    const debugMode = isDebugModeFromURLParam();
+    const debugMode = isDebugModeFromURLParamOfCurrentWindowLocation(DEBUG_URL_PARAM_KEY);
 
     /**
      * @type {SSCWeb}
@@ -63,7 +70,52 @@ function initializeMapApiKey(apiKey) {
  */
 function onFailedInitializeMapApiKey(error) {
     console.error("MapApiKey のイニシャライズに失敗しました:", error.stack);
-    alert(`MapApiKey のイニシャライズに失敗しました: ${error.stack}`);
+    displayFailedInitializeMapApiKey(error);
+}
+
+/**
+ * マップの表示の失敗をレンダリングします
+  * @returns {void}
+ */
+function displayFailedInitializeMapApiKey(error) {
+    /**
+     * @type {Render}
+     */
+    const render = new Render();
+
+    /**
+     * @type {{
+     *     $p: ({ textContent }: { textContent: string }) => HTMLElement,
+     *     $style: ({ innerHTML }: { innerHTML: string }) => HTMLElement,
+     * }}
+     */
+    const { $div, $p, $style } = render;
+
+    /**
+     * @type {HTMLElement}
+     */
+    const $map = document.getElementById("map");
+
+    render.build({
+        target: $map,
+        children: [
+            $div({
+                children: [
+                    $p({
+                        id: "map-error-message",
+                        textContent: `マップの表示に失敗しました: MapApiKey のイニシャライズに失敗しました: ${error.message}`,
+                    }),
+                ],
+            }),
+            $style({
+                textContent: (`
+                    #map-error-message {
+                        color: #f88;
+                    }
+                `),
+            }),
+        ],
+    });
 }
 
 /**
@@ -82,6 +134,16 @@ function initializeSSCWeb({ mapApiKey, debugMode }) {
  * URL パラメータからデバッグモードかどうかを取得します
  * @returns {boolean}
  */
-function isDebugModeFromURLParam() {
-    return new URL(window.location.href).searchParams.get("debug") !== null;
+function isDebugModeFromURLParamOfCurrentWindowLocation(paramKey) {
+    const urlParams = initializeURLSearchParamsOfCurrentWindowLocation();
+    const debugMode = urlParams.get(paramKey);
+    return debugMode !== null;
+}
+
+/**
+ * URLSearchParams をイニシャライズします
+ * @returns {URLSearchParams}
+ */
+function initializeURLSearchParamsOfCurrentWindowLocation() {
+    return new URLSearchParams(window.location.search);
 }

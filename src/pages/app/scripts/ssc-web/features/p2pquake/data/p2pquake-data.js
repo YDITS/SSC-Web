@@ -9,6 +9,7 @@
 
 import { DateFormatter } from "../../date-formatter/date-formatter.js";
 import { DateFormatterFormatTypes } from "../../date-formatter/types/format-types.js";
+import { parseFloatToFixedOne } from "../../../core/utils/parse-float-to-fixed-one.js";
 
 export class P2pquakeItem {
     /**
@@ -65,10 +66,10 @@ export class P2pquakeItem {
 
         this.occurredTime = DateFormatter.dateFormat({
             date: new Date(item.occurredTime),
-            formatType: DateFormatterFormatTypes.FORMAT_TYPES.TIME_ONLY_NO_SECONDS
+            formatType: DateFormatterFormatTypes.FORMAT_TYPES.DATETIME_ONLY_NO_YEARSDATE_NO_SECONDS
         });
 
-        this.occurredTime += " 頃";
+        this.occurredTime += " ごろ";
 
         this.scale = item.scale;
         this.magnitude = item.magnitude;
@@ -128,7 +129,8 @@ export class P2pquakeItem {
         if (this.magnitude === -1) {
             return ("不明");
         } else {
-            return (`M ${this.magnitude}`);
+            const fixedMagnitude = parseFloatToFixedOne(this.magnitude);
+            return (`M ${fixedMagnitude}`);
         }
     }
 

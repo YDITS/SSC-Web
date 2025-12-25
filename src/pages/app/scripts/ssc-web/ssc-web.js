@@ -10,13 +10,13 @@
 import { Version } from "https://cdn.yoneyo.com/scripts/version@1.0.0/version.js";
 import { Render } from "https://cdn.yoneyo.com/scripts/render@1.0.0/render.js";
 
-import { ElementsManager } from "../modules/elements-manager/elements-manager.js";
-import { Map } from "../modules/maps/map.js";
-import { MapApiKey } from "../modules/maps/types/api-key.js";
-import { P2pquake } from "../modules/p2pquake/p2pquake.js";
-import { P2pquakeItem, P2pquakePoint } from "../modules/p2pquake/data/p2pquake-data.js";
-import { Icons } from "../modules/icons/icons.js";
-import { AddressSearch } from "../modules/address-search/address-search.js";
+import { ElementsManager } from "./features/elements-manager/elements-manager.js";
+import { Map } from "./features/maps/map.js";
+import { MapApiKey } from "./features/maps/types/api-key.js";
+import { P2pquake } from "./features/p2pquake/p2pquake.js";
+import { P2pquakeItem, P2pquakePoint } from "./features/p2pquake/data/p2pquake-data.js";
+import { Icons } from "./features/icons/icons.js";
+import { AddressSearch } from "./features/address-search/address-search.js";
 
 /**
  * SSC for Web
@@ -27,7 +27,7 @@ export class SSCWeb {
      * 
      * @type {Version}
      */
-    static VERSION = new Version(1, 2, 0, Version.levels.stable);
+    static VERSION = new Version(1, 3, 0, Version.levels.stable);
 
     /**
      * アプリケーション名
@@ -200,6 +200,7 @@ export class SSCWeb {
             });
         };
 
+        this.elementsManager.getFromCache("#scale-icon-settings-select").value = this.iconType;
         renderingScaleIconsPreview();
 
         this.elementsManager.getFromCache("#scale-icon-settings-select").addEventListener("change", event => {
@@ -207,6 +208,25 @@ export class SSCWeb {
             localStorage.setItem("ssc-web-icon-type", this.iconType);
             renderingScaleIconsPreview();
             this.#onGotNewEarthquakeInformation({ data: this.latestP2pquakeData });
+        });
+
+        const savedUIScale = localStorage.getItem("ssc-web-ui-scale");
+        this.savedUIScale = savedUIScale || "1.0";
+        this.elementsManager.getFromCache("#ui-scale-settings-select").value = this.savedUIScale;
+
+        const scaleMap = {
+            "0.90": "14px",
+            "1.00": "16px",
+            "1.25": "20px",
+            "1.50": "24px",
+        };
+
+        document.documentElement.style.setProperty("--font-size", scaleMap[this.savedUIScale] || "16px");
+
+        this.elementsManager.getFromCache("#ui-scale-settings-select").addEventListener("change", event => {
+            this.savedUIScale = event.target.value;
+            localStorage.setItem("ssc-web-ui-scale", this.savedUIScale);
+            document.documentElement.style.setProperty("--font-size", scaleMap[this.savedUIScale] || "16px");
         });
 
         this.p2pquake = new P2pquake({
@@ -335,12 +355,14 @@ export class SSCWeb {
 
         const lat = latestData?.hypocenter?.lat;
         const lng = latestData?.hypocenter?.lng;
-        this.map.bounds = L.latLngBounds();
 
-        try {
-            this.map.removeAllLayers();
-        } catch (error) {
-            throw new Error("新しい地震情報のマップ更新中にエラーが発生しました");
+        if (this.map instanceof Map) {
+            try {
+                this.map.bounds = L.latLngBounds();
+                this.map.removeAllLayers();
+            } catch (error) {
+                throw new Error("新しい地震情報のマップ更新中にエラーが発生しました");
+            }
         }
 
         try {

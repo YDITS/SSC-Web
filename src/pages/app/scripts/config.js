@@ -13,6 +13,7 @@
 export class Config {
     /**
      * マップのAPIキー
+     * @type {string}
      */
     static MAP_API_KEY = "wiAJ7OPjFLLf0qS0KJYa";
 }
