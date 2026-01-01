@@ -345,6 +345,23 @@ main {
     }
 }
 
+/* link-button */
+
+.link-button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    box-sizing: border-box;
+    width: 100%;
+    border-radius: 1rem;
+
+    padding: 1rem;
+    background-color: #333;
+    color: #fff;
+    text-decoration: none;
+}
+
 /* modals */
 
 .modals {
