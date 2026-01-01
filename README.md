@@ -12,7 +12,7 @@ https://ssc.ydits.net/ で公開しています。
 
 ## ライセンス
 
-This project is not licensed.
+[Apache License 2.0](./LICENSE) のもとでライセンスされます。
 
 このプロジェクトは YDITS (よね/Yone) が開発し、Saitama Sora Cam が提供しています。
 
