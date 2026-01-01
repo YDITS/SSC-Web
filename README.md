@@ -4,6 +4,8 @@
 
 Saitama Sora Cam (SSC) が提供する防災情報Webアプリケーションです。
 
+https://ssc.ydits.net/ で公開しています。
+
 ## 利用方法
 
 `src/pages/` をデプロイします。
