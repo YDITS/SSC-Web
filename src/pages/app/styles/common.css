@@ -1,11 +1,13 @@
 @charset "UTF-8";
 
-/*
+/*!
 
     SSC for Web
 
     Copyright (C) Saitama Sora Cam, よね/Yone
-    改変や複製を一切禁じます。
+    Licensed under the Apache License 2.0
+
+    https://github.com/YDITS/SSC-Web
 
 */
 
@@ -343,6 +345,23 @@ main {
             opacity: 0.4;
         }
     }
+}
+
+/* link-button */
+
+.link-button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    box-sizing: border-box;
+    width: 100%;
+    border-radius: 1rem;
+
+    padding: 1rem;
+    background-color: #333;
+    color: #fff;
+    text-decoration: none;
 }
 
 /* modals */

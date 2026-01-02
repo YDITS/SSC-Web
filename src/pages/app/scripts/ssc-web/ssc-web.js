@@ -3,7 +3,9 @@
  * SSC for Web
  * 
  * Copyright (C) Saitama Sora Cam, よね/Yone
- * 改変や複製を一切禁じます。
+ * Licensed under the Apache License 2.0
+ * 
+ * https://github.com/YDITS/SSC-Web
  * 
  */
 
@@ -27,7 +29,7 @@ export class SSCWeb {
      * 
      * @type {Version}
      */
-    static VERSION = new Version(1, 3, 0, Version.levels.stable);
+    static VERSION = new Version(1, 4, 0, Version.levels.stable);
 
     /**
      * アプリケーション名
