@@ -18,4 +18,4 @@ https://ssc.ydits.net/ で公開しています。
 
 **YDITS** は **よね/Yone** が運営する防災サービスです。
 
-Copyright (C) Saitama Sora Cam, よね/Yone
+Copyright © Saitama Sora Cam, よね/Yone
