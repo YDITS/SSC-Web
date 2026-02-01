@@ -11,12 +11,10 @@
 
 */
 
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap');
-
 :root {
     --font-size: 18px;
     --font-weight: 400;
-    --font-family: 'Noto Sans JP', 'Roboto', sans-serif;
+    --font-family: "Local Noto Sans JP", "Noto Sans JP", "Roboto", sans-serif;
 
     --link-color: #25caa9;
 
@@ -35,23 +33,22 @@
     @media (width < 1024px) or (height < 768px) {
         --font-size: 16px;
     }
-}
 
-body,
-body * {
-    margin: 0;
-    padding: 0;
-    user-select: none;
-}
-
-html {
     font-size: var(--font-size);
 }
 
 body {
+    margin: 0;
+    padding: 0;
     background-color: #000;
-    font-size: var(--font-size);
     font-family: var(--font-family);
+    font-size: var(--font-size);
+    user-select: none;
+
+    & * {
+        margin: 0;
+        padding: 0;
+    }
 }
 
 main {
@@ -405,7 +402,7 @@ main {
 
     background-color: #000;
     color: #eee;
-    
+
     transition: bottom 0.4s;
     pointer-events: auto;
 
@@ -455,7 +452,7 @@ main {
 .modal__content {
     display: flex;
     flex-direction: column;
-    
+
     box-sizing: border-box;
     padding: 1rem;
     height: calc(100% - 4rem);
