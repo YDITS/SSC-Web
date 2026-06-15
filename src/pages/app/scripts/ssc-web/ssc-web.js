@@ -404,7 +404,7 @@ export class SSCWeb {
                     Icons.INT_ICONS?.["ssc-v2"]?.["-1"]
                 );
 
-                this.map.newPoint(latLng.lat, latLng.lng, iconUrl, point.scale * 10);
+                this.map.newPoint(latLng.lat, latLng.lng, iconUrl, point.scale);
 
                 points.push(new P2pquakePoint({
                     "addr": point.addr,
