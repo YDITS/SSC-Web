@@ -29,7 +29,7 @@ export class SSCWeb {
      * 
      * @type {Version}
      */
-    static VERSION = new Version(1, 4, 0, Version.levels.stable);
+    static VERSION = new Version(1, 5, 0, Version.levels.stable);
 
     /**
      * アプリケーション名
