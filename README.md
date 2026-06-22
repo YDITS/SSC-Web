@@ -14,7 +14,7 @@ https://ssc.ydits.net/ で公開しています。
 
 [Apache License 2.0](./LICENSE) のもとでライセンスされます。
 
-このプロジェクトは YDITS (よね/Yone) が開発し、Saitama Sora Cam が提供しています。
+このプロジェクトは YDITS が開発し、Saitama Sora Cam が提供しています。
 
 **YDITS** は **よね/Yone** が運営する防災サービスです。
 

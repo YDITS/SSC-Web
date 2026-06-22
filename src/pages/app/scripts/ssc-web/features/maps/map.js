@@ -93,7 +93,7 @@ export class Map {
                 iconUrl: "./images/v2/hypocenter.png",
                 iconSize: [32, 32]
             }),
-            zIndexOffset: 9,
+            zIndexOffset: 100,
         }).addTo(this.map);
     }
 
