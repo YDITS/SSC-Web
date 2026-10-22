@@ -1,9 +1,9 @@
-/**!
+/*!
  * 
  * SSC for Web
  * 
- * Copyright (C) Saitama Sora Cam, よね/Yone
- * Licensed under the Apache License 2.0
+ * Copyright (C) 2024-2026 よね/Yone
+ * Licensed under the Apache License 2.0.
  * 
  * https://github.com/YDITS/SSC-Web
  * 
