@@ -15,8 +15,7 @@
     --max-width-large: 64rem;
     --max-width-medium: 48rem;
     --font-family: "Local Noto Sans JP", "Noto Sans JP", "Roboto", sans-serif;
-    /* --font-size: 100%; */
-    --font-size: 112.5%;
+    --font-size: 100%;
     --font-weight: 400;
     --font-weight-semi-bold: 700;
     --font-weight-bold: 900;

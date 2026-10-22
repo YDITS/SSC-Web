@@ -217,18 +217,18 @@ export class SSCWeb {
         this.elementsManager.getFromCache("#ui-scale-settings-select").value = this.savedUIScale;
 
         const scaleMap = {
-            "0.90": "14px",
-            "1.00": "16px",
-            "1.25": "20px",
-            "1.50": "24px",
+            "0.90": "90%",
+            "1.00": "100%",
+            "1.25": "125%",
+            "1.50": "150%",
         };
 
-        document.documentElement.style.setProperty("--font-size", scaleMap[this.savedUIScale] || "16px");
+        document.documentElement.style.setProperty("--font-size", scaleMap[this.savedUIScale] || "100%");
 
         this.elementsManager.getFromCache("#ui-scale-settings-select").addEventListener("change", event => {
             this.savedUIScale = event.target.value;
             localStorage.setItem("ssc-web-ui-scale", this.savedUIScale);
-            document.documentElement.style.setProperty("--font-size", scaleMap[this.savedUIScale] || "16px");
+            document.documentElement.style.setProperty("--font-size", scaleMap[this.savedUIScale] || "100%");
         });
 
         this.p2pquake = new P2pquake({
