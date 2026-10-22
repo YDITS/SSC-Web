@@ -12,48 +12,102 @@
 */
 
 :root {
-    --font-size: 18px;
-    --font-weight: 400;
+    --max-width-large: 64rem;
+    --max-width-medium: 48rem;
     --font-family: "Local Noto Sans JP", "Noto Sans JP", "Roboto", sans-serif;
+    /* --font-size: 100%; */
+    --font-size: 112.5%;
+    --font-weight: 400;
+    --font-weight-semi-bold: 700;
+    --font-weight-bold: 900;
+    --line-height: 1.5;
 
-    --link-color: #25caa9;
+    --primary-color: hsl(168, 69%, 47%);
+    --primary-color-dim: hsl(from var(--primary-color) h s calc(l - 12));
+    --secondary-color: hsl(208 100% 42%);
+    --secondary-color-dim: hsl(from var(--secondary-color) h s calc(l - 12));
+    --background-color: hsl(240, 100%, 3%);
+    --background-color-note: hsl(27 100% 75%);
+    --text-color: hsl(0, 0%, 93%);
+    --focus-color: orange;
+    --error-color: hsl(0 65% 56%);
+    --link-color: var(--primary-color);
 
+    --transition-duration: 300ms;
+
+    /* map-item */
     --map-item--border-radius: 0.5rem;
     --map-item--bgcolor: #000000c0;
     --map-item--color: #ffffffff;
 
+    /* information-details */
     --information-details--width: 16rem;
 
     /* z-index */
-    --map-item--z-index: 9999;
-    --menu-button-wrapper--z-index: calc(var(--map-item--z-index) + 1);
-    --modals--z-index: calc(var(--map-item--z-index) + 2);
-    --modal--z-index: calc(var(--modals--z-index) + 3);
+    --map-item-z-index: 9999;
+    --menu-button-wrapper-z-index: calc(var(--map-item-z-index) + 1);
+    --modals-z-index: calc(var(--map-item-z-index) + 2);
+    --modal-z-index: calc(var(--modals-z-index) + 3);
 
-    @media (width < 1024px) or (height < 768px) {
-        --font-size: 16px;
+    scroll-behavior: smooth;
+    font-family: var(--font-family);
+    font-size: var(--font-size);
+    font-weight: var(--font-weight);
+    line-height: var(--line-height);
+    color: var(--text-color);
+
+    @media (width < 20rem) or (height < 20rem) {
+        --font-size: 75%;
     }
 
-    font-size: var(--font-size);
+    @media (prefers-reduced-motion: reduce) {
+        --transition-duration: 0ms;
+        scroll-behavior: revert;
+    }
+}
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font: inherit;
+
+    &:focus-visible {
+        outline: 4px solid var(--focus-color);
+        outline-offset: 4px;
+    }
 }
 
 body {
-    margin: 0;
-    padding: 0;
     background-color: #000;
-    font-family: var(--font-family);
-    font-size: var(--font-size);
     user-select: none;
-
-    & * {
-        margin: 0;
-        padding: 0;
-    }
 }
 
 main {
     display: flex;
     flex-direction: row;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font: inherit;
+}
+
+a {
+    text-decoration: none;
+    color: var(--link-color);
+
+    @media (hover: hover) and (pointer: fine) {
+        &:hover {
+            text-decoration: underline;
+        }
+    }
 }
 
 /* map */
@@ -62,15 +116,15 @@ main {
     width: calc(100vw - var(--information-details--width));
     height: 100dvh;
 
-    @media (max-width: 768px) {
-        transition: width 0.3s;
+    @media (max-width: 48rem) {
         width: 100vw;
+        transition: width var(--transition-duration);
     }
 }
 
 .map__item {
     position: fixed;
-    z-index: var(--map-item--z-index);
+    z-index: var(--map-item-z-index);
     background-color: var(--map-item--bgcolor);
     color: var(--map-item--color);
 }
@@ -80,11 +134,9 @@ main {
 .information-title {
     top: 1rem;
     left: 0;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     padding: 0.5em;
     font-size: 1.8rem;
     font-weight: bold;
@@ -95,7 +147,6 @@ main {
 .published-time {
     top: 5.5rem;
     left: 0;
-
     background-color: #0000;
     padding: 0.5em;
     font-size: 1rem;
@@ -105,26 +156,22 @@ main {
 /* information-details */
 
 .information-details {
-    display: flex;
-    flex-direction: column;
-
-    box-sizing: border-box;
-
     width: var(--information-details--width);
     height: 100vh;
-    border-left: 1px solid #fff4;
     overflow: auto;
-
+    display: flex;
+    flex-direction: column;
+    border-left: 1px solid #fff4;
     padding: 0.5rem 0.8rem;
     background-color: #111;
     color: #fff;
 
     @media (max-width: 768px) {
         position: fixed;
+        z-index: calc(var(--map-item-z-index) + 1);
         top: 0;
         right: -100%;
-        transition: right 0.3s;
-        z-index: calc(var(--map-item--z-index) + 1);
+        transition: right var(--transition-duration);
 
         &.enabled {
             right: 0;
@@ -134,14 +181,12 @@ main {
 }
 
 .information-details__item {
+    min-height: 3.5rem;
+    overflow: hidden;
     display: flex;
     flex-direction: row;
     align-items: center;
-
-    min-height: 3.5rem;
-    overflow: hidden;
     border-top: 1px solid #fff4;
-
     padding: 0.5rem 0;
 
     &:first-child {
@@ -161,9 +206,9 @@ main {
 }
 
 .information-details__description {
+    width: 50%;
     display: flex;
     justify-content: end;
-    width: 50%;
     text-wrap: nowrap;
 }
 
@@ -201,12 +246,12 @@ main {
 
 .expand-information-details {
     position: fixed;
+    z-index: calc(var(--map-item-z-index) + 2);
     top: 42vh;
     right: 0;
     height: fit-content;
-    z-index: calc(var(--map-item--z-index) + 2);
 
-    transition: right 0.3s;
+    transition: right var(--transition-duration);
 
     & .close {
         display: none;
@@ -227,8 +272,6 @@ main {
 
 .expand-information-details__button {
     display: none;
-    writing-mode: vertical-rl;
-    text-orientation: upright;
     border: none;
     border-left: 1px solid #fff4;
     border-top: 1px solid #fff4;
@@ -237,8 +280,10 @@ main {
     padding: 0.5em 0.3em;
     background-color: #111;
     color: var(--map-item--color);
+    writing-mode: vertical-rl;
+    text-orientation: upright;
 
-    @media (max-width: 768px) {
+    @media (max-width: 48rem) {
         display: block;
     }
 }
@@ -248,13 +293,11 @@ main {
 .icon-legend {
     bottom: 7rem;
     left: .7rem;
-
     display: none;
     flex-direction: column;
-
-    gap: 0.5rem;
     border-radius: var(--map-item--border-radius);
     padding: .5em 1em;
+    gap: 0.5rem;
 
     &.enabled {
         display: flex;
@@ -267,8 +310,8 @@ main {
 }
 
 .icon-legend__image {
-    width: 1.5rem;
     margin-right: .3rem;
+    width: 1.5rem;
 }
 
 .ellipsis {
@@ -295,7 +338,6 @@ main {
     justify-content: center;
     align-items: center;
     padding: 0.5rem;
-
     color: var(--map-item--color);
     text-decoration: none;
 }
@@ -316,25 +358,23 @@ main {
     bottom: 0.5rem;
     right: 0.5rem;
 
-    z-index: var(--menu-button-wrapper--z-index);
+    z-index: var(--menu-button-wrapper-z-index);
 }
 
 .menu-button {
+    width: 3rem;
+    height: 3rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
-    width: 3rem;
-    height: 3rem;
     border: none;
     border-radius: var(--map-item--border-radius);
-
     background-color: var(--map-item--bgcolor);
     color: var(--map-item--color);
 
     &>* {
-        transition: opacity 0.2s;
+        transition: opacity var(--transition-duration);
     }
 
     &:active {
@@ -376,14 +416,14 @@ main {
     opacity: 0;
     pointer-events: none;
 
-    transition: opacity 0.6s;
+    transition: opacity calc(var(--transition-duration) * 2);
 
     &.enabled {
         opacity: 1;
         pointer-events: stroke;
     }
 
-    z-index: var(--modals--z-index);
+    z-index: var(--modals-z-index);
 }
 
 /* modal */
@@ -403,7 +443,7 @@ main {
     background-color: #000;
     color: #eee;
 
-    transition: bottom 0.4s;
+    transition: bottom var(--transition-duration);
     pointer-events: auto;
 
     &.enabled {
@@ -414,7 +454,7 @@ main {
         left: calc(50dvw - 24rem);
     }
 
-    z-index: var(--modal--z-index);
+    z-index: var(--modal-z-index);
 }
 
 .modal__title-bar {
@@ -439,7 +479,7 @@ main {
     color: var(--map-item--color);
 
     &>* {
-        transition: opacity 0.2s;
+        transition: opacity var(--transition-duration);
     }
 
     &:active {
@@ -577,19 +617,19 @@ main {
 
 .debug-mode-marker {
     position: fixed;
+    z-index: 9999;
     bottom: 1rem;
     right: 1rem;
-    background-color: #e62;
-    color: #fff;
     opacity: 0.8;
+    display: none;
     border-radius: 100vw;
     padding: 0.2em 0.5em;
-    z-index: 9999;
+    background-color: #e62;
+    color: #fff;
 
-    display: none;
-
-    transition: font-size 0.3s,
-        background-color 0.3s;
+    transition:
+        font-size var(--transition-duration),
+        background-color var(--transition-duration);
 
     &.enabled {
         display: block;
