@@ -11,27 +11,41 @@
 -->
 <html lang="ja">
 
-<head>
+<head prefix="og: https://ogp.me/ns#">
     <meta charset="UTF-8">
 
     <!-- Meta -->
     <title>SSC for Web</title>
-    <meta name="description" content="Saitama Sora Cam が提供する防災情報Webアプリケーション。">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Saitama Sora Cam が提供する防災情報Webアプリケーション。地震情報、各地の震度分布マップを表示します。このプロジェクトは、YDITS が Saitama Sora Cam 用に制作・ライセンス提供しています。">
     <meta name="color-scheme" content="dark">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- OGP -->
+    <meta property="og:url" content="https://ssc.ydits.net/app/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="SSC for Web">
+    <meta property="og:title" content="SSC for Web">
+    <meta property="og:description"
+        content="Saitama Sora Cam が提供する防災情報Webアプリケーション。地震情報、各地の震度分布マップを表示します。このプロジェクトは、YDITS が Saitama Sora Cam 用に制作・ライセンス提供しています。">
+    <meta property="og:image" content="https://cdn.ydits.net/images/ydits-ssc-logos/ydits_for_ssc_icon_transparent.png">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@YDITS_JP">
 
     <!-- Preconnects -->
     <link rel="preconnect" href="https://cdn.yoneyo.com">
+    <link rel="preconnect" href="https://cdn.ydits.net">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <!-- Icons -->
-    <link rel="shortcut icon" type="image/x-icon"
-        href="https://cdn.ydits.net/images/ydits-ssc-logos/ydits_for_ssc_icon_transparent.png">
-    <link rel="apple-touch-icon-precomposed"
-        href="https://cdn.ydits.net/images/ydits-ssc-logos/ydits_for_ssc_icon_transparent.png">
+    <link rel="icon" href="https://cdn.ydits.net/images/ydits-ssc-logos/ydits_for_ssc_icon_transparent.png"
+        type="image/x-icon" sizes="1024x1024">
+    <link rel="apple-touch-icon" href="https://cdn.ydits.net/images/ydits-ssc-logos/ydits_for_ssc_icon_transparent.png"
+        type="image/x-icon" sizes="1024x1024">
     <link rel="fluid-icon" href="https://cdn.ydits.net/images/ydits-ssc-logos/ydits_for_ssc_icon_transparent.png"
-        title="SSC for Web">
+        type="image/x-icon" sizes="1024x1024" title="SSC for Web">
 
     <!-- Manifest -->
     <link rel="manifest" href="./ssc-web.webmanifest">
@@ -41,17 +55,30 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css">
     <link rel="stylesheet" href="https://cdn.maptiler.com/maptiler-sdk-js/v1.2.0/maptiler-sdk.css">
     <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css">
     <link rel="stylesheet" href="./styles/common.css">
 
+    <!-- Preloads -->
+    <link rel="modulepreload" href="https://cdn.yoneyo.com/scripts/render-js@1.0.0-beta.2/dist/render.js" crossorigin>
+    <link rel="modulepreload" href="https://cdn.yoneyo.com/scripts/version-js@1.4.0/dist/version.js" crossorigin>
+    <link rel="modulepreload" href="https://cdn.yoneyo.com/scripts/render-js@1.0.0-beta.2/dist/app/app.js" crossorigin>
+    <link rel="modulepreload" href="https://cdn.yoneyo.com/scripts/render-js@1.0.0-beta.2/dist/component/component.js"
+        crossorigin>
+    <link rel="modulepreload" href="https://cdn.yoneyo.com/scripts/render-js@1.0.0-beta.2/dist/elements/element.js"
+        crossorigin>
+    <link rel="modulepreload" href="https://cdn.yoneyo.com/scripts/render-js@1.0.0-beta.2/dist/elements/elements.js"
+        crossorigin>
+
+    <link rel="modulepreload" href="./scripts/index.js">
+
     <!-- Scripts -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://cdn.maptiler.com/maptiler-sdk-js/v1.2.0/maptiler-sdk.umd.js"></script>
     <script src="https://cdn.maptiler.com/leaflet-maptilersdk/v2.0.0/leaflet-maptilersdk.js"></script>
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js"></script>
-    <script src="./scripts/index.js" type="module"></script>
+    <script type="module" src="./scripts/index.js"></script>
 </head>
 
 <body>
@@ -321,7 +348,7 @@
                                 </div>
 
                                 <div class="licenses__copyright">
-                                    &copy; <a href="https://x.com/saitamasoracam" target="_blank">Saitama Sora Cam</a>,
+                                    © <a href="https://x.com/saitamasoracam" target="_blank">Saitama Sora Cam</a>,
                                     <a href="https://www.yoneyo.com/" target="_blank">よね/Yone</a>
                                 </div>
                             </li>
@@ -381,7 +408,7 @@
                                 </div>
 
                                 <div class="licenses__copyright">
-                                    &copy; <a href="https://www.p2pquake.net/" target="_blank">P2P地震情報</a>
+                                    © <a href="https://www.p2pquake.net/" target="_blank">P2P地震情報</a>
                                 </div>
                             </li>
 
@@ -408,7 +435,7 @@
                                 </div>
 
                                 <div class="licenses__copyright">
-                                    &copy; <a href="https://www.yoneyo.com/" target="_blank">よね/Yone</a>
+                                    © <a href="https://www.yoneyo.com/" target="_blank">よね/Yone</a>
                                 </div>
                             </li>
 
@@ -435,7 +462,7 @@
                                 </div>
 
                                 <div class="licenses__copyright">
-                                    &copy; <a href="https://agafonkin.com/" target="_blank">Volodymyr Agafonkin</a>,
+                                    © <a href="https://agafonkin.com/" target="_blank">Volodymyr Agafonkin</a>,
                                     CloudMade
                                 </div>
                             </li>
@@ -463,7 +490,7 @@
                                 </div>
 
                                 <div class="licenses__copyright">
-                                    &copy; OpenStreetMap contributors
+                                    © OpenStreetMap contributors
                                 </div>
                             </li>
 
@@ -495,7 +522,7 @@
                                 </div>
 
                                 <div class="licenses__copyright">
-                                    &copy; MapTiler AG
+                                    © MapTiler AG
                                 </div>
                             </li>
 
@@ -505,7 +532,7 @@
                                 </h4>
 
                                 <div class="licenses__copyright">
-                                    &copy; <a href="https://x.com/saitamasoracam" target="_blank">Saitama Sora Cam</a>
+                                    © <a href="https://x.com/saitamasoracam" target="_blank">Saitama Sora Cam</a>
                                 </div>
                             </li>
 
@@ -524,7 +551,7 @@
                                 </div>
 
                                 <div class="licenses__copyright">
-                                    &copy; <a href="https://www.yoneyo.com/" target="_blank">よね/Yone</a>
+                                    © <a href="https://www.yoneyo.com/" target="_blank">よね/Yone</a>
                                 </div>
                             </li>
                         </ul>
