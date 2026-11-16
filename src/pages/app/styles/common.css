@@ -14,11 +14,23 @@
 :root {
     --max-width-large: 64rem;
     --max-width-medium: 48rem;
-    --font-family: "Local Noto Sans JP", "Noto Sans JP", "Roboto", sans-serif;
+    --max-width-small: 32rem;
+    --font-family:
+        "Local Noto Sans",
+        "Local Noto Sans CJK",
+        "Local Noto Sans SC",
+        "Local Noto Sans TC",
+        "Local Noto Sans JP",
+        "Local Noto Sans KR",
+        "Noto Sans",
+        "Noto Sans CJK",
+        "Noto Sans SC",
+        "Noto Sans TC",
+        "Noto Sans JP",
+        "Noto Sans KR",
+        sans-serif;
     --font-size: 100%;
     --font-weight: 400;
-    --font-weight-semi-bold: 700;
-    --font-weight-bold: 900;
     --line-height: 1.5;
 
     --primary-color: hsl(168, 69%, 47%);
@@ -63,6 +75,77 @@
         --transition-duration: 0ms;
         scroll-behavior: revert;
     }
+
+    &:lang(zh),
+    &:lang(zh-CN) {
+        --font-family:
+            "Local Noto Sans SC",
+            "Local Noto Sans TC",
+            "Local Noto Sans CJK",
+            "Local Noto Sans",
+            "Local Noto Sans JP",
+            "Local Noto Sans KR",
+            "Noto Sans SC",
+            "Noto Sans TC",
+            "Noto Sans CJK",
+            "Noto Sans",
+            "Noto Sans JP",
+            "Noto Sans KR",
+            sans-serif;
+    }
+
+    &:lang(zh-TW) {
+        --font-family:
+            "Local Noto Sans TC",
+            "Local Noto Sans SC",
+            "Local Noto Sans CJK",
+            "Local Noto Sans",
+            "Local Noto Sans JP",
+            "Local Noto Sans KR",
+            "Noto Sans TC",
+            "Noto Sans SC",
+            "Noto Sans CJK",
+            "Noto Sans",
+            "Noto Sans JP",
+            "Noto Sans KR",
+            sans-serif;
+    }
+
+    &:lang(ja),
+    &:lang(ja-JP) {
+        --font-family:
+            "Local Noto Sans JP",
+            "Local Noto Sans CJK",
+            "Local Noto Sans",
+            "Local Noto Sans SC",
+            "Local Noto Sans TC",
+            "Local Noto Sans KR",
+            "Noto Sans JP",
+            "Noto Sans CJK",
+            "Noto Sans",
+            "Noto Sans SC",
+            "Noto Sans TC",
+            "Noto Sans KR",
+            sans-serif;
+    }
+
+    &:lang(ko),
+    &:lang(ko-KR) {
+        --font-family:
+            "Local Noto Sans KR",
+            "Local Noto Sans CJK",
+            "Local Noto Sans",
+            "Local Noto Sans SC",
+            "Local Noto Sans TC",
+            "Local Noto Sans JP",
+            "Noto Sans KR",
+            "Noto Sans CJK",
+            "Noto Sans",
+            "Noto Sans SC",
+            "Noto Sans TC",
+            "Noto Sans JP",
+            sans-serif;
+    }
 }
 
 *,
@@ -72,11 +155,11 @@
     padding: 0;
     box-sizing: border-box;
     font: inherit;
+}
 
-    &:focus-visible {
-        outline: 4px solid var(--focus-color);
-        outline-offset: 4px;
-    }
+*:focus-visible {
+    outline: 4px solid var(--focus-color);
+    outline-offset: 4px;
 }
 
 body {
