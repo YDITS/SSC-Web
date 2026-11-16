@@ -11,15 +11,16 @@
 -->
 <html lang="ja">
 
-<head prefix="og: https://ogp.me/ns#">
+<head>
     <meta charset="UTF-8">
 
     <!-- Meta -->
     <title>SSC for Web</title>
     <meta name="description"
         content="Saitama Sora Cam が提供する防災情報Webアプリケーション。地震情報、各地の震度分布マップを表示します。このプロジェクトは、YDITS が Saitama Sora Cam 用に制作・ライセンス提供しています。">
-    <meta name="color-scheme" content="dark">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark">
+    <meta name="theme-color" content="#000000">
 
     <!-- OGP -->
     <meta property="og:url" content="https://ssc.ydits.net/app/">
@@ -29,15 +30,22 @@
     <meta property="og:description"
         content="Saitama Sora Cam が提供する防災情報Webアプリケーション。地震情報、各地の震度分布マップを表示します。このプロジェクトは、YDITS が Saitama Sora Cam 用に制作・ライセンス提供しています。">
     <meta property="og:image" content="https://cdn.ydits.net/images/ydits-ssc-logos/ydits_for_ssc_icon_transparent.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1024">
+    <meta property="og:image:height" content="1024">
+    <meta property="og:image:alt" content="YDITS for SSCのアイコン">
+    <meta property="og:locale" content="ja_JP">
 
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@YDITS_JP">
 
+    <!-- Canonical -->
+    <link rel="canonical" href="https://ssc.ydits.net/app/">
+
     <!-- Preconnects -->
     <link rel="preconnect" href="https://cdn.yoneyo.com">
+    <link rel="preconnect" href="https://fonts.yoneyo.com" crossorigin>
     <link rel="preconnect" href="https://cdn.ydits.net">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <!-- Icons -->
     <link rel="icon" href="https://cdn.ydits.net/images/ydits-ssc-logos/ydits_for_ssc_icon_transparent.png"
@@ -46,23 +54,15 @@
         type="image/png" sizes="512x512">
     <link rel="icon" href="https://cdn.ydits.net/images/ydits-ssc-logos/ydits_for_ssc_icon_transparent_192px.png"
         type="image/png" sizes="192x192">
-    <link rel="apple-touch-icon" href="https://cdn.ydits.net/images/ydits-ssc-logos/ydits_for_ssc_icon_transparent.png"
-        type="image/png" sizes="1024x1024">
-    <link rel="apple-touch-icon"
-        href="https://cdn.ydits.net/images/ydits-ssc-logos/ydits_for_ssc_icon_transparent_512px.png" type="image/png"
-        sizes="512x512">
-    <link rel="apple-touch-icon"
-        href="https://cdn.ydits.net/images/ydits-ssc-logos/ydits_for_ssc_icon_transparent_192px.png" type="image/png"
-        sizes="192x192">
-    <link rel="fluid-icon" href="https://cdn.ydits.net/images/ydits-ssc-logos/ydits_for_ssc_icon_transparent.png"
-        type="image/x-icon" sizes="1024x1024" title="SSC for Web">
+    <link rel="apple-touch-icon" href="https://cdn.ydits.net/images/ydits-logos/ydits_icon_180px.png" type="image/png"
+        sizes="180x180">
 
     <!-- Manifest -->
     <link rel="manifest" href="./ssc-web.webmanifest">
 
     <!-- Fonts -->
-    <link rel="stylesheet" href="https://cdn.yoneyo.com/styles/local-noto-sans-jp.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap">
+    <link rel="stylesheet" href="https://cdn.yoneyo.com/styles/fonts/noto-sans/noto-sans-local.css">
+    <link rel="stylesheet" href="https://cdn.yoneyo.com/styles/fonts/noto-sans-jp/noto-sans-jp-cf-fonts.css">
 
     <!-- Styles -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css">
@@ -71,24 +71,33 @@
     <link rel="stylesheet" href="./styles/common.css">
 
     <!-- Preloads -->
-    <link rel="modulepreload" href="https://cdn.yoneyo.com/scripts/render-js@1.0.0-beta.2/dist/render.js" crossorigin>
-    <link rel="modulepreload" href="https://cdn.yoneyo.com/scripts/version-js@1.4.0/dist/version.js" crossorigin>
-    <link rel="modulepreload" href="https://cdn.yoneyo.com/scripts/render-js@1.0.0-beta.2/dist/app/app.js" crossorigin>
-    <link rel="modulepreload" href="https://cdn.yoneyo.com/scripts/render-js@1.0.0-beta.2/dist/component/component.js"
-        crossorigin>
-    <link rel="modulepreload" href="https://cdn.yoneyo.com/scripts/render-js@1.0.0-beta.2/dist/elements/element.js"
-        crossorigin>
-    <link rel="modulepreload" href="https://cdn.yoneyo.com/scripts/render-js@1.0.0-beta.2/dist/elements/elements.js"
-        crossorigin>
+    <link rel="modulepreload" href="https://cdn.yoneyo.com/scripts/version-js@1.4.0/dist/version.js">
+    <link rel="modulepreload" href="https://cdn.yoneyo.com/scripts/render-js@1.0.0-beta.2/dist/render.js">
+    <link rel="modulepreload" href="https://cdn.yoneyo.com/scripts/render-js@1.0.0-beta.2/dist/app/app.js">
+    <link rel="modulepreload" href="https://cdn.yoneyo.com/scripts/render-js@1.0.0-beta.2/dist/component/component.js">
+    <link rel="modulepreload" href="https://cdn.yoneyo.com/scripts/render-js@1.0.0-beta.2/dist/elements/element.js">
+    <link rel="modulepreload" href="https://cdn.yoneyo.com/scripts/render-js@1.0.0-beta.2/dist/elements/elements.js">
 
     <link rel="modulepreload" href="./scripts/index.js">
+    <link rel="modulepreload" href="./scripts/config.js">
+    <link rel="modulepreload" href="./scripts/ssc-web/ssc-web.js">
+    <link rel="modulepreload" href="./scripts/ssc-web/core/utils/parse-float-to-fixed-one.js">
+    <link rel="modulepreload" href="./scripts/ssc-web/features/address-search/address-search.js">
+    <link rel="modulepreload" href="./scripts/ssc-web/features/date-formatter/date-formatter.js">
+    <link rel="modulepreload" href="./scripts/ssc-web/features/date-formatter/types/format-types.js">
+    <link rel="modulepreload" href="./scripts/ssc-web/features/elements-manager/elements-manager.js">
+    <link rel="modulepreload" href="./scripts/ssc-web/features/icons/icons.js">
+    <link rel="modulepreload" href="./scripts/ssc-web/features/maps/map.js">
+    <link rel="modulepreload" href="./scripts/ssc-web/features/maps/types/api-key.js">
+    <link rel="modulepreload" href="./scripts/ssc-web/features/p2pquake/p2pquake.js">
+    <link rel="modulepreload" href="./scripts/ssc-web/features/p2pquake/data/p2pquake-data.js">
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://cdn.maptiler.com/maptiler-sdk-js/v1.2.0/maptiler-sdk.umd.js"></script>
     <script src="https://cdn.maptiler.com/leaflet-maptilersdk/v2.0.0/leaflet-maptilersdk.js"></script>
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js"></script>
-    <script type="module" src="./scripts/index.js"></script>
+    <script src="./scripts/index.js" type="module"></script>
 </head>
 
 <body>
@@ -138,7 +147,7 @@
                         Powered by
                     </span>
                     <img id="yditsCopyrightImage" class="ydits-copyright__image"
-                        src="https://cdn.ydits.net/images/ydits_logos/ydits_logo_white_transparent.png"
+                        src="https://cdn.ydits.net/images/ydits-logos/ydits_logo_white_transparent.png"
                         alt="YDITS's Logo">
                 </a>
             </div>
