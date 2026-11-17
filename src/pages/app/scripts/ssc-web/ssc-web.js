@@ -9,8 +9,8 @@
  * 
  */
 
-import { Version } from "https://cdn.yoneyo.com/scripts/version@1.0.0/version.js";
-import { Render } from "https://cdn.yoneyo.com/scripts/render@1.0.0/render.js";
+import { Version, VersionLevel } from "https://cdn.yoneyo.com/scripts/version-js@1.4.0/dist/version.js";
+import { Render } from "https://cdn.yoneyo.com/scripts/render-js@1.0.0-beta.2/dist/render.js";
 
 import { ElementsManager } from "./features/elements-manager/elements-manager.js";
 import { Map } from "./features/maps/map.js";
@@ -29,7 +29,7 @@ export class SSCWeb {
      * 
      * @type {Version}
      */
-    static VERSION = new Version(1, 5, 0, Version.levels.stable);
+    static VERSION = new Version({ major: 1, minor: 5, patch: 0, level: VersionLevel.stable });
 
     /**
      * アプリケーション名

@@ -9,7 +9,7 @@
  * 
  */
 
-import { Render } from "https://cdn.yoneyo.com/scripts/render@1.0.0/render.js";
+import { Render } from "https://cdn.yoneyo.com/scripts/render-js@1.0.0-beta.2/dist/render.js";
 import { Config } from "./config.js";
 import { SSCWeb } from "./ssc-web/ssc-web.js";
 import { MapApiKey } from "./ssc-web/features/maps/types/api-key.js";
